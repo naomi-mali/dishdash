@@ -40,6 +40,8 @@ class Recipe(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(User, related_name='recipe_likes', blank=True)
 
+    class Meta:
+        ordering = ["-created_on"]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -47,7 +49,7 @@ class Recipe(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return f'{self.title} | written by {self.author}'
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -60,6 +62,9 @@ class Comment(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
+    
+    class Meta:
+        ordering = ["created_on"]
 
     def __str__(self):
         return f'Comment by {self.author} on {self.recipe}'
