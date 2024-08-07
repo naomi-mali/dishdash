@@ -23,9 +23,20 @@ class Recipe(models.Model):
         validators=[validate_nonzero, MaxValueValidator(600)], default=15)
     servings = models.PositiveIntegerField(
         validators=[validate_nonzero, MaxValueValidator(50)], default=1)
+    # Macro nutrients in calories
+    total_calories = models.PositiveIntegerField(
+        validators=[validate_nonzero], default=0, help_text="Total calories in the recipe")
+    calories_protein = models.PositiveIntegerField(
+        validators=[validate_nonzero], default=0, help_text="Calories from protein")
+    calories_carbs = models.PositiveIntegerField(
+        validators=[validate_nonzero], default=0, help_text="Calories from carbohydrates")
+    calories_fats = models.PositiveIntegerField(
+        validators=[validate_nonzero], default=0, help_text="Calories from fats")
+        
     ingredients = models.TextField(blank=False)
     instructions = models.TextField(blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(User, related_name='recipe_likes', blank=True)
 
@@ -37,3 +48,19 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Comment(models.Model):
+    recipe = models.ForeignKey(
+        Recipe, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='commenter')
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Comment by {self.author} on {self.recipe}'
+
