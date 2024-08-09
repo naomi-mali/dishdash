@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Introduction Section -->
+<div class="image-background">
+    <div class="container h-100 justify-content-center">
+        <div class="row h-100 align-items-center">
+            <div class="col-12 text-center">
+                <div class="with-shadow">
+                    <h2 class="display-1">Welcome to Dish Dash!</h2>
+                    <p class="lead">Where Every Meal is a Shared Adventure.</p>  
+                    <p class="lead">At Dish Dash, we’re all about celebrating food and cooking together. Whether you’re a seasoned chef or a curious home cook, join us to share and discover amazing recipes, tweak dishes to perfection, and connect with fellow food lovers.
+                        Explore new ideas, enhance your favorite recipes, and find inspiration for every meal. Let’s make cooking fun and delicious—together!
+                        Dive in and start your culinary adventure with Dish Dash today!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recipe Listings Section -->
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-12 mt-3 left">
+            <div class="row">
+                {% for recipe in recipe_list %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="image-container">
+                                <div class="image-flash">
+                                    <p class="author">Author: {{ recipe.author }}</p>
+                                </div>
+                            </div>
+                                <h2 class="card-title">{{ recipe.title }}</h2>
+                            </a>
+                            <hr />
+                            <p class="card-text text-muted h6">{{ recipe.created_on }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:3 %}
+            </div>
+            <div class="row">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+{% endblock %}
