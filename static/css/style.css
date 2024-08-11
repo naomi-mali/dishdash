@@ -1,0 +1,48 @@
+/* Base.html */
+
+/* Navbar  */
+.navbar {
+    background: linear-gradient(to bottom, 
+        yellow 100%, 
+        rgba(255, 255, 0, 0.8) 25%, 
+        rgba(255, 255, 255, 0.6) 50%,
+        rgba(255, 255, 0, 0.8) 75%,
+        yellow 100%);
+}
+
+.navbar .navbar-brand, 
+.navbar .nav-link {
+    color: rgb(17, 196, 17);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.navbar .nav-link.active {
+    color:  rgb(17, 196, 17);
+}
+
+.navbar-brand .brand {
+    font-family: 'Grenze Gotisch', serif;
+    font-weight: 700; 
+    font-size: 3rem;
+    color: rgb(17, 196, 17);
+}
+
+/* Footer  */
+.footer {
+    background: linear-gradient(to bottom, 
+        yellow 0%, 
+        rgba(255, 255, 0, 0.8) 25%,
+        rgba(255, 255, 255, 0.6) 50%,
+        rgba(255, 255, 0, 0.8) 75%,
+        yellow 100%);
+    color: #228B22;
+}
+
+.footer a, .footer p {
+    color: #228B22;
+}
+
+.footer a:hover {
+    color: #1e7e1e;
+}

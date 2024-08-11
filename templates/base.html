@@ -1,3 +1,5 @@
+{% load static %}
+
 {% url 'home' as home_url %}
 
 <!DOCTYPE html>
@@ -26,18 +28,26 @@
     <!-- Google Fonts CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Margarine&family=Noto+Serif+Khitan+Small+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-    <title>  Dish Dash </title>   
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png'">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png'">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon/apple-touch-icon.png">
+    
+    <!-- Link to your custom CSS file -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title> Dish Dash </title>   
 </head>
 
-<body class="d-flex flex-column h-100 main-bg">
+<body class="d-flex flex-column h-100">
     <!-- Navigation -->
-     <nav class="navbar navbar-expand-lg navbar-light bg-white">
+     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <!-- Brand Logo -->
             <a class="navbar-brand" href="{{ home_url }}">
-                <span class="brand">Dish Dash</span>
+                <span class="brand"><i class="fa-solid fa-utensils"></i> Dish Dash </span>
             </a>
             <!-- Toggler Button for Mobile View -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -50,13 +60,13 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page"
                           href="{{ home_url }}">Home</a>
-                        </li>
+                    </li>
                         <!-- Add navbars -->
                 </ul>
              </div>
          </div>
     </nav>
-    <main class="flex-shrink-0 main-bg">
+    <main class="flex-shrink-0">
 
         {% block content %}
         <!-- Content Goes here -->
@@ -64,21 +74,18 @@
 
     </main>
 
-
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 dark-bg">
-        <p class="m-0 text-center text-black">This website is for educational use only</p>
-        <p class="m-0 text-center text-black">Made by Naomi Mali
+    <footer class="footer mt-auto py-3">
+        <p class="m-0 text-center">This website is for educational use only</p>
+        <p class="m-0 text-center">Made by Naomi Mali
         </br>
             <a href="https://github.com/naomi-mali" target="_blank" title="Github">
-                <i class="fa-brands fa-github fa-lg" style="color: #070707;"></i></a>
+                <i class="fa-brands fa-github fa-lg"></i></a>
             <a href="https://www.linkedin.com/in/naomi-mali-69353b182/" target="_blank" title="My_LinkedIn">
-                <i class="fa-brands fa-linkedin-in fa-lg" style="color: #000000;"></i></a>
+                <i class="fa-brands fa-linkedin-in fa-lg"></i></a>
             <br>
-        
+        </p>
     </footer>
-
-
 </body>
 
 </html>
