@@ -35,10 +35,9 @@
                                 </div>
                             </div>
                                 <h2 class="card-title">{{ recipe.title }}</h2>
-                            </a>
                             <p class="card-text text-muted h6">{{ recipe.created_on }}</p>
                             <hr>
-                            <a class="btn btn-primary">View Recipe</a> 
+                            <a href="{% url 'recipe_detail' recipe.slug %}" class="btn btn-primary">View Recipe</a> 
                         </div>
                     </div>
                 </div>
