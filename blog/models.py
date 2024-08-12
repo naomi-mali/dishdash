@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django import forms
+from .models import CommunityPost
 
 STATUS = (
     (0, "Draft"),
@@ -52,9 +54,6 @@ class Recipe(models.Model):
     def __str__(self):
         return f'{self.title} | written by {self.author}'
 
-from django.db import models
-from django.contrib.auth.models import User
-
 class Comment(models.Model):
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE, related_name='comments')
@@ -69,4 +68,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.author} on {self.recipe}'
+
+
 
