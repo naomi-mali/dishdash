@@ -51,7 +51,7 @@ class Recipe(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.title} | written by {self.author}'
+        return f'{self.title}  || written by {self.author}'
 
 class Comment(models.Model):
     recipe = models.ForeignKey(
