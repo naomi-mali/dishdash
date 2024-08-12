@@ -190,3 +190,108 @@ body {
     color: rgb(183, 247, 191);
     border-color: rgb(28, 196, 28);
 }
+
+/* Style for the sign-up page*/
+
+/* Style for the sign-up title */
+.signup-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(244, 250, 244);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #1eb82b;
+}
+
+/* Style for the introductory text */
+.intro-text {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.1rem;
+    color: #020202;
+    margin: 0;
+}
+
+/* Style for sign-in link */
+.signin-link {
+    color: rgb(28, 196, 28);
+    text-decoration: underline;
+}
+
+/* Style for the sign-up form container */
+.signup-container {
+    background-color: #f6f866;
+    border-radius: 0;
+    border: 3px solid darkorange;
+    box-shadow: 0 2px 4px rgba(247, 141, 2, 0.1);
+    margin-top: 0 !important;
+    border-top: none;
+}
+
+
+.bordered-section {
+    border: 3px solid darkorange; /* Light gray border color */
+    padding: 10px; /* Adjust padding as needed */
+    border-radius: 0; /* Rounded corners */
+    background-color: #f6f866; /* Light background color */
+    margin-bottom: 0 !important;
+
+}
+
+/* Style for form fields */
+.signup-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.signup-form .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.signup-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ff6803;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Style for the submit button */
+.btn-primary {
+    background-color: rgb(28, 196, 28);
+    border-color: rgb(28, 196, 28);
+    color: rgb(247, 247, 247);
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: rgb(14, 122, 14);
+    border-color: rgb(14, 122, 14);
+}
+
+/* Style for input text fields */
+.signup-container input[type="text"],
+.signup-container input[type="email"],
+.signup-container input[type="password"],
+.signup-container input[type="number"],
+.signup-container textarea {
+    background-color: #fff9c4;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Libre Baskerville', serif;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+
+
