@@ -3,6 +3,9 @@ from django.views import generic
 from django.contrib import messages
 from .models import Recipe
 from .forms import CommentForm
+from django.views.generic import ListView
+from django.db.models import Q
+
 
 # Create your views here.
 class RecipeList(generic.ListView):
@@ -39,3 +42,23 @@ def post_detail(request, slug):
             "comment_form": comment_form,
     },
     )
+
+class RecipeSearchList(ListView):
+  
+    model = Recipe
+    template_name = 'blog/search_recipe.html'
+    context_object_name = 'recipes'
+    paginate_by = 9
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q', '')
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query) |
+                Q(ingredients__icontains=query),
+                status=1
+            ).order_by('-created_on')
+        else:
+            queryset = Recipe.objects.none()
+        return queryset

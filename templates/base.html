@@ -4,6 +4,7 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
+{% url 'recipe_search' as 'recipe_search_url' %}
 
 
 <!DOCTYPE html>
@@ -64,6 +65,10 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page"
                           href="{{ home_url }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == recipe_search_url %}active" aria-current="page{% endif %}" 
+                          href="{% url 'recipe_search' %}">Search Recipes </a> 
                     </li>
                         <!-- Add navbars -->
                         {% if user.is_authenticated %}
