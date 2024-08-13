@@ -7,14 +7,19 @@
     <div class="row">
         <!-- Recipe Image on the Left -->
         <div class="col-md-6">
-            <img src="{% static 'images/food.jpg' %}" alt="{{ recipe.title }}" class="img-fluid rounded shadow">
+            {% if "placeholder" in recipe.featured_image.url %}
+            <img class="card-img-top" src="{% static 'images/food2.jpg' %}" alt="food image" style="height: 400px; padding-top: 25px;">
+            {% else %}
+            <img class="card-img-top" src="{{ recipe.featured_image.url }}" alt="{{ recipe.title }}" style="height: 400px; padding-top: 25px;">
+            {% endif %}
         </div>
-
+        
         <!-- Recipe Details on the Right -->
         <div class="col-md-6">
             <h2 class="display-4" style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
                 {{ recipe.title }}
-            </h2>            
+            </h2> 
+           
             <p class="text-muted mb-2">Posted by: {{ recipe.author }} | {{ recipe.created_on }}</p>
             <hr>
             <p><strong><i class="fa-solid fa-fire" style= "color: rgb(28, 196, 28);"></i>  Total Calories:</strong> {{ recipe.total_calories }}</p>
