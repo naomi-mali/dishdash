@@ -85,7 +85,7 @@ body {
 /* Style for headers within the image-background section */
 .image-background .display-1 {
     font-family: 'Grenze Gotisch', serif; 
-    font-size: 3rem; 
+    font-size: 2.5rem; 
     color:rgb(28, 196, 28);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     margin-bottom: 20px;
