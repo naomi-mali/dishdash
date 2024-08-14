@@ -40,7 +40,7 @@ class Recipe(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    likes = models.ManyToManyField(User, related_name='recipe_likes', blank=True)
+    likes = models.ManyToManyField(User, related_name='liked_recipes', blank=True)
 
     class Meta:
         ordering = ["-created_on"]
@@ -52,6 +52,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return f'{self.title} || written by {self.author}'
+    
+    def total_num_of_likes(self):
+        return self.likes.count()    
 
 class Comment(models.Model):
     recipe = models.ForeignKey(

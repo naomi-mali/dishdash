@@ -352,23 +352,29 @@ body {
     margin-bottom: 1rem; /* Add some margin below each form group */
 }
 
-.form-container {
-    background-color: #ffffff; /* Light background color */
-    border-radius: 0.5rem;
-    padding: 2rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Style for Like Button */
+.like-icon {
+    background: transparent;
+    border: none;
+    color: rgb(155, 155, 155);
+    font-size: 24px;
+    transition: color 0.3s ease;
+    cursor: pointer;
 }
 
-.btn-primary {
-    background-color: #0daf23; /* Primary button color */
-    border-color: #15c52d;
-    color: #ffffff;
+.like-icon.liked {
+    color: red;
 }
 
-.btn-primary:hover {
-    background-color: #f5b62d; /* Darker shade on hover */
-    border-color: #f0bb28;
-    color: #ffffff;
-    
+.like-icon:hover {
+    color: rgb(255, 0, 0);
 }
 
+.spacer-font {
+    font-size: 18px;
+    color: #333;
+}
+
+.spacer {
+    margin-left: 10px;
+}

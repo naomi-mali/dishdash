@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% block content %}
 
 <div class="container mt-4">
     <div class="row">
@@ -14,27 +14,62 @@
             {% endif %}
         </div>
         
-        <!-- Recipe Details on the Right -->
+        <!-- Recipe Details and Like/Unlike Section on the Right -->
         <div class="col-md-6">
-            <h2 class="display-4" style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                {{ recipe.title }}
-            </h2> 
-           
-            <p class="text-muted mb-2">Posted by: {{ recipe.author }} | {{ recipe.created_on }}</p>
-            <hr>
-            <p><strong><i class="fa-solid fa-fire" style= "color: rgb(28, 196, 28);"></i>  Total Calories:</strong> {{ recipe.total_calories }}</p>
-            <p><strong><i class="fa-solid fa-dna" style= "color: rgb(28, 196, 28);"></i>  Protein:</strong> {{ recipe.calories_protein }}g</p>
-            <p><strong><i class="fa-solid fa-wheat-awn" style= "color: rgb(28, 196, 28);"></i>  Carbs:</strong> {{ recipe.calories_carbs }}g</p>
-            <p><strong><i class="fa-solid fa-bacon" style= "color: rgb(28, 196, 28);"></i>  Fats:</strong> {{ recipe.calories_fats }}g</p>
-            <p><strong><i class="fa-solid fa-mortar-pestle" style= "color: rgb(28, 196, 28);"></i>  Prep Time:</strong> {{ recipe.prep_time }} minutes</p>
-            <p><strong><i class="fa-solid fa-clock" style= "color: rgb(28, 196, 28);"></i>  Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
-            <p><strong><i class="fa-solid fa-bowl-food" style= "color: rgb(28, 196, 28);"></i>  Servings:</strong> {{ recipe.servings }}</p>
-            {% if user.id == recipe.author.id %}
-            <a href="{% url 'update_recipe' recipe.slug %}" id="edit-button" class="btn btn-success btn-spacing w-25">Edit</a>
-            <a href="{% url 'delete_recipe' recipe.slug %}" id="delete-button" class="btn btn-danger w-25">Delete</a>
-            {% endif %}  
+            <div class="d-flex flex-column h-100">
+                <!-- Recipe Details -->
+                <div class="mb-4">
+                    <h2 class="display-4" style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+                        {{ recipe.title }}
+                    </h2>
+                    
+                    <p class="text-muted mb-2">Posted by: {{ recipe.author }} | {{ recipe.created_on }}</p>
+                    <hr>
+                    <p><strong><i class="fa-solid fa-fire" style="color: rgb(28, 196, 28);"></i> Total Calories:</strong> {{ recipe.total_calories }}</p>
+                    <p><strong><i class="fa-solid fa-dna" style="color: rgb(28, 196, 28);"></i> Protein:</strong> {{ recipe.calories_protein }}g</p>
+                    <p><strong><i class="fa-solid fa-wheat-awn" style="color: rgb(28, 196, 28);"></i> Carbs:</strong> {{ recipe.calories_carbs }}g</p>
+                    <p><strong><i class="fa-solid fa-bacon" style="color: rgb(28, 196, 28);"></i> Fats:</strong> {{ recipe.calories_fats }}g</p>
+                    <p><strong><i class="fa-solid fa-mortar-pestle" style="color: rgb(28, 196, 28);"></i> Prep Time:</strong> {{ recipe.prep_time }} minutes</p>
+                    <p><strong><i class="fa-solid fa-clock" style="color: rgb(28, 196, 28);"></i> Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
+                    <p><strong><i class="fa-solid fa-bowl-food" style="color: rgb(28, 196, 28);"></i> Servings:</strong> {{ recipe.servings }}</p>
+                    {% if user.id == recipe.author.id %}
+                    <a href="{% url 'update_recipe' recipe.slug %}" id="edit-button" class="btn btn-success btn-spacing w-25">Edit</a>
+                    <a href="{% url 'delete_recipe' recipe.slug %}" id="delete-button" class="btn btn-danger w-25">Delete</a>
+                    {% endif %}
+                </div>
+
+                <!-- Like/Unlike Section -->
+                <div class="mb-3 d-flex align-items-center">
+                    {% if user.is_authenticated %}
+                    <form method="POST" class="d-inline" action="{% url 'recipe_like' recipe.slug %}">
+                        {% csrf_token %}
+                        {% if request.user in recipe.likes.all %}
+                        <button class="like-icon liked" type="submit" aria-label="like the recipe">
+                            <strong><i class="fa-solid fa-heart"></i></strong>
+                        </button>
+                        {% else %}
+                        <button class="like-icon" type="submit" aria-label="unlike the recipe">
+                            <strong><i class="fa-regular fa-heart"></i></strong>
+                        </button>  
+                        {% endif %}
+                    </form>
+                    {% else %}
+                    <span class="like-icon">
+                        <strong><i class="fa-regular fa-heart"></i></strong>
+                    </span>
+                    {% endif %}
+                    <span class="spacer-font ml-2">
+                        <strong>{{ recipe.total_num_of_likes }}</strong>
+                    </span>
+                    {% with comments.count as total_comments %}
+                    <span class="spacer spacer-font ml-2"><strong>
+                        <i class="fa-solid fa-comments"></i> {{ total_comments }}</strong>
+                    </span>
+                    {% endwith %}
+                </div>
+            </div>
         </div>
-    </div>   
+    </div>
     <hr>
     <!-- Ingredients and Instructions Section -->
     <div class="row mt-5">
@@ -63,17 +98,6 @@
         </div>
     </div>
     <hr>
-    <!-- Displaying count of comments -->
-    <div class="row">
-        <div class="col-12">
-            <strong class="text-secondary">
-                <i class="far fa-comments"></i> {{ comment_count }}
-            </strong>
-        </div>
-        <div class="col-12">
-            <hr>
-        </div>
-    </div>
     <!-- Displaying Comments -->
     <div class="row">
         <!-- Comments Section -->

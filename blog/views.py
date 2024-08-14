@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views import generic
+from django.views import generic, View
 from django.contrib import messages
 from .models import Recipe
 from .forms import CommentForm
@@ -9,6 +9,10 @@ from .forms import RecipeForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+
 
 
 # Create your views here.
@@ -114,6 +118,7 @@ class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return response
 
 class UserDrafts(ListView):
+
     template_name = "blog/my_drafts.html"
     model = Recipe
     context_object_name = "recipe_drafts"
@@ -121,3 +126,17 @@ class UserDrafts(ListView):
 
     def get_queryset(self):
         return Recipe.objects.filter(author=self.request.user, status=0)
+
+class RecipeLike(View):
+    def post(self, request, slug):
+        recipe = get_object_or_404(Recipe, slug=slug)
+
+        if request.user.is_authenticated:
+            if recipe.likes.filter(id=request.user.id).exists():
+                recipe.likes.remove(request.user)
+            else:
+                recipe.likes.add(request.user)
+
+        return redirect(reverse('recipe_detail', args=[slug]))
+
+ 
