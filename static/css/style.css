@@ -352,3 +352,23 @@ body {
     margin-bottom: 1rem; /* Add some margin below each form group */
 }
 
+.form-container {
+    background-color: #ffffff; /* Light background color */
+    border-radius: 0.5rem;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #0daf23; /* Primary button color */
+    border-color: #15c52d;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #f5b62d; /* Darker shade on hover */
+    border-color: #f0bb28;
+    color: #ffffff;
+    
+}
+

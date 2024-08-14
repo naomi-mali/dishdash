@@ -112,3 +112,12 @@ class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         # Add a success message
         messages.success(self.request, "Your recipe has been deleted successfully.")
         return response
+
+class UserDrafts(ListView):
+    template_name = "blog/my_drafts.html"
+    model = Recipe
+    context_object_name = "recipe_drafts"
+    paginate_by = 6
+
+    def get_queryset(self):
+        return Recipe.objects.filter(author=self.request.user, status=0)
