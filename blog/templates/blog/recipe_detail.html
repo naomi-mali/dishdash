@@ -29,8 +29,12 @@
             <p><strong><i class="fa-solid fa-mortar-pestle" style= "color: rgb(28, 196, 28);"></i>  Prep Time:</strong> {{ recipe.prep_time }} minutes</p>
             <p><strong><i class="fa-solid fa-clock" style= "color: rgb(28, 196, 28);"></i>  Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
             <p><strong><i class="fa-solid fa-bowl-food" style= "color: rgb(28, 196, 28);"></i>  Servings:</strong> {{ recipe.servings }}</p>
+            {% if user.id == recipe.author.id %}
+            <a href="{% url 'update_recipe' recipe.slug %}" id="edit-button" class="btn btn-success btn-spacing w-25">Edit</a>
+            <a href="{% url 'delete_recipe' recipe.slug %}" id="delete-button" class="btn btn-danger w-25">Delete</a>
+            {% endif %}  
         </div>
-    </div>
+    </div>   
     <hr>
     <!-- Ingredients and Instructions Section -->
     <div class="row mt-5">

@@ -6,8 +6,8 @@ from .forms import CommentForm
 from django.views.generic import ListView
 from django.db.models import Q
 from .forms import RecipeForm
-from django.views.generic.edit import CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 
 
@@ -16,7 +16,7 @@ class RecipeList(generic.ListView):
     queryset = Recipe.objects.filter(status=1)
     template_name = "blog/index.html"
     paginate_by = 9
-
+ 
 def post_detail(request, slug):
     queryset = Recipe.objects.filter(status=1)
     recipe = get_object_or_404(queryset, slug=slug)
@@ -79,3 +79,36 @@ class AddRecipe(LoginRequiredMixin, CreateView):
         messages.add_message(self.request, messages.SUCCESS, success_message)
         return super(AddRecipe, self).form_valid(form)
 
+class UpdateRecipe(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Recipe
+    form_class = RecipeForm
+    template_name = "blog/update_recipe.html"
+    
+    def get_success_url(self):
+        # Redirect to the detail page of the updated recipe
+        return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug})
+    
+    def test_func(self):
+        # Ensures that only the author of the recipe can edit it
+        return self.request.user == self.get_object().author
+
+    def form_valid(self, form):
+        # Associates the current user as the author
+        form.instance.author = self.request.user
+        success_message = "Your recipe has been updated successfully."
+        messages.success(self.request, success_message)
+        return super().form_valid(form)
+
+class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Recipe
+    success_url = reverse_lazy('home')
+
+    def test_func(self):
+        return self.request.user == self.get_object().author
+
+    def delete(self, request, *args, **kwargs):
+        # Perform the deletion and get the response
+        response = super().delete(request, *args, **kwargs)
+        # Add a success message
+        messages.success(self.request, "Your recipe has been deleted successfully.")
+        return response
