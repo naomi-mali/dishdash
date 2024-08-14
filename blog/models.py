@@ -19,7 +19,6 @@ class Recipe(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='recipe_owner')
-
     featured_image = CloudinaryField('image', default='placeholder')  
     prep_time = models.PositiveIntegerField(
         validators=[validate_nonzero, MaxValueValidator(300)], default=15)
@@ -35,15 +34,13 @@ class Recipe(models.Model):
     calories_carbs = models.PositiveIntegerField(
         validators=[validate_nonzero], default=0, help_text="Calories from carbohydrates")
     calories_fats = models.PositiveIntegerField(
-        validators=[validate_nonzero], default=0, help_text="Calories from fats")
-        
+        validators=[validate_nonzero], default=0, help_text="Calories from fats")  
     ingredients = models.TextField(blank=False)
     instructions = models.TextField(blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(User, related_name='recipe_likes', blank=True)
-    excerpt = models.TextField(max_length=500, blank=True)
 
     class Meta:
         ordering = ["-created_on"]

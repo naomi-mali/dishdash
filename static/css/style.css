@@ -304,3 +304,51 @@ body {
     box-sizing: border-box;
 }
 
+/* Add custom styles for form elements */
+.form-container {
+    background-color: #f6f866; 
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-container h1 {
+    color: #199614;
+    font-family: 'Grenze Gotisch', serif;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #f36506;
+    border-color: #830202;
+    color: #fffdfc;
+}
+
+.btn-center {
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-primary:hover {
+    background-color: #e22e0e;
+    border-color: #ff9900;
+
+}
+
+.form-control {
+    width: 100%; /* Ensure full width of column */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.form-group {
+    margin-bottom: 1rem; /* Add some margin below each form group */
+}
+

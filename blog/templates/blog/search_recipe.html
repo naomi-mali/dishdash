@@ -70,7 +70,7 @@
                 {% endif %}
             </div>
         </div>
-    {% else %}
+        {% elif request.GET.q %}
         <div class="row">
             <div class="col text-center">
                 <p class="lead">No recipes found. Try searching with different keywords.</p>
@@ -79,3 +79,9 @@
     {% endif %}
 </div>
 {% endblock content %}
+
+
+
+
+
+

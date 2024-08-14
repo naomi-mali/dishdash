@@ -1,10 +1,14 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.contrib import messages
 from .models import Recipe
 from .forms import CommentForm
 from django.views.generic import ListView
 from django.db.models import Q
+from .forms import RecipeForm
+from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -62,3 +66,16 @@ class RecipeSearchList(ListView):
         else:
             queryset = Recipe.objects.none()
         return queryset
+
+class AddRecipe(LoginRequiredMixin, CreateView):
+    model = Recipe
+    form_class = RecipeForm
+    template_name = "blog/add_recipe.html"
+    success_url = reverse_lazy('home')
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        success_message = "Your recipe has been posted successfully."
+        messages.add_message(self.request, messages.SUCCESS, success_message)
+        return super(AddRecipe, self).form_valid(form)
+
