@@ -3,6 +3,9 @@ from django import forms
 
 
 class CommentForm(forms.ModelForm):
+    """
+    Comment Form to add comments
+    """
     class Meta:
         model = Comment
         fields = ('body',)
@@ -14,7 +17,9 @@ class Bootstrap4TextInput(forms.TextInput):
 
 
 class RecipeForm(forms.ModelForm):
-
+    """
+    Recipe Form to create/add new recipes
+    """
     class Meta:
         model = Recipe
         fields = [

@@ -9,13 +9,14 @@
 <div class="container mt-5 mb-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card" style= "background-color: #f6f866;">
-        <div class="card-header text-center card-bg" style= "background-color:rgb(28, 196, 28);">
+      <div class="card" style="background-color: #f6f866;">
+        <div class="card-header text-center card-bg" style="background-color:rgb(28, 196, 28);">
           <h1 class="card-title" style="color: white;">{% trans "Sign In" %}</h1>
         </div>
         <div class="card-body">
-          <p>{% blocktrans %}To leave a comment, create or like a post, please log in. 
-            If you have not created an account yet, then please <a href="{{ signup_url }}" style="color: green;"><strong>Sign up</strong>
+          <p>{% blocktrans %}To leave a comment, create or like a post, please log in.
+            If you have not created an account yet, then please <a href="{{ signup_url }}"
+              style="color: green;"><strong>Sign up</strong>
             </a> first.{% endblocktrans %}</p>
           <form class="login" method="POST" action="{% url 'account_login' %}">
             {% csrf_token %}
@@ -23,12 +24,14 @@
             {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
             {% endif %}
-            <button class="btn btn-signup" type="submit" style= "background-color:rgb(28, 196, 28); color: white;">{% trans "Sign In" %}</button>
+            <button class="btn btn-signup" type="submit"
+              style="background-color:rgb(28, 196, 28); color: white;">{% trans "Sign In" %}</button>
           </form>
           <!-- Sign-Out Form -->
           {% if user.is_authenticated %}
           <div class="mt-4 text-center">
-            <h3 style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+            <h3
+              style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
               {% trans "Sign Out" %}
             </h3>
             <p style="font-family: 'Libre Baskerville', serif; font-size: 1.25rem; color: #020202;">
@@ -39,7 +42,8 @@
               {% if redirect_field_value %}
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
-              <button class="btn btn-primary mt-4" type="submit" style="background-color: rgb(28, 196, 28); border-color: rgb(28, 196, 28); color: white; font-family: 'Libre Baskerville', serif; font-weight: 600; padding: 10px 20px; border-radius: 5px; transition: background-color 0.3s ease, border-color 0.3s ease;">
+              <button class="btn btn-primary mt-4" type="submit"
+                style="background-color: rgb(28, 196, 28); border-color: rgb(28, 196, 28); color: white; font-family: 'Libre Baskerville', serif; font-weight: 600; padding: 10px 20px; border-radius: 5px; transition: background-color 0.3s ease, border-color 0.3s ease;">
                 {% trans 'Sign Out' %}
               </button>
             </form>

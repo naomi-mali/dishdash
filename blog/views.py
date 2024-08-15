@@ -17,10 +17,18 @@ from django.urls import reverse
 
 # Create your views here.
 class RecipeList(generic.ListView):
+    """
+    Class based view to display list of published recipes.
+    Displays 9 recipes per page, filtered to show only
+    recipes with a status of 'published',
+    The recipes are ordered by the date they are created,
+    with the latest ones appearing first.
+
+    """
     queryset = Recipe.objects.filter(status=1)
     template_name = "blog/index.html"
     paginate_by = 9
- 
+    
 def post_detail(request, slug):
     queryset = Recipe.objects.filter(status=1)
     recipe = get_object_or_404(queryset, slug=slug)
@@ -52,7 +60,12 @@ def post_detail(request, slug):
     )
 
 class RecipeSearchList(ListView):
-  
+    """
+    View to display a list of recipes based on user search.
+    Searches for recipes based on title, cuisine type, and description.
+    Retrieves search for only recipes with status 'published'.
+    Displays 9 recipes per page.
+    """
     model = Recipe
     template_name = 'blog/search_recipe.html'
     context_object_name = 'recipes'
@@ -71,7 +84,17 @@ class RecipeSearchList(ListView):
             queryset = Recipe.objects.none()
         return queryset
 
+
 class AddRecipe(LoginRequiredMixin, CreateView):
+    """
+    Class based view to add/create recipes
+    Requires user to be logged in.
+    On successful form submission, redirects to the 'recipes' page.
+    If the form is valid, sets the author of the recipe
+    to the current logged-in user.
+    Displays a success message to the user.
+    """
+
     model = Recipe
     form_class = RecipeForm
     template_name = "blog/add_recipe.html"
@@ -83,7 +106,16 @@ class AddRecipe(LoginRequiredMixin, CreateView):
         messages.add_message(self.request, messages.SUCCESS, success_message)
         return super(AddRecipe, self).form_valid(form)
 
+
 class UpdateRecipe(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """
+    Class based view to edit/update recipe
+    Requires the user to be logged in and be the author of the recipe.
+    On successful form submission, redirects to the 'recipes' page.
+    Handles the form submission when valid.
+    Displays a success message to the user
+    on successful update.
+    """
     model = Recipe
     form_class = RecipeForm
     template_name = "blog/update_recipe.html"
@@ -103,7 +135,14 @@ class UpdateRecipe(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         messages.success(self.request, success_message)
         return super().form_valid(form)
 
+
 class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """
+    Class based view to delete recipe.
+    Checks if the user is authorised to delete recipe.
+    Manages delete request and override form_valid to
+    displays a success message to user after successful deletion.
+    """
     model = Recipe
     success_url = reverse_lazy('home')
 
@@ -117,8 +156,15 @@ class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         messages.success(self.request, "Your recipe has been deleted successfully.")
         return response
 
-class UserDrafts(ListView):
 
+class UserDrafts(ListView):
+    """
+    Class based view to display user's draft recipes.
+    Displays drafts created by the currently logged-in user.
+    Only visible to the draft author.
+    Returns a list of recipes with status of 'draft'.
+    Displays 9 recipes per page.
+    """
     template_name = "blog/my_drafts.html"
     model = Recipe
     context_object_name = "recipe_drafts"
@@ -127,7 +173,15 @@ class UserDrafts(ListView):
     def get_queryset(self):
         return Recipe.objects.filter(author=self.request.user, status=0)
 
+
 class RecipeLike(View):
+    """
+    View to handle like/unlike recipe.
+    Allows only logged-in users to like/unlike the recipe.
+    Checks if the user has liked/unliked the recipe.
+    Adds like if not/ removes like if yes
+    Redirects user back to same page.
+    """
     def post(self, request, slug):
         recipe = get_object_or_404(Recipe, slug=slug)
 

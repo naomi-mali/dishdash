@@ -5,15 +5,16 @@
 <div class="container card mt-5 mb-5" style="max-width: 1000px;">
     <!-- enctype is necessary to upload media files -->
     <form method="POST" enctype="multipart/form-data" class="form p-4">
-        <h1 class="text-center mt-4 mb-4" style="font-family: 'Grenze Gotisch', serif; color: rgb(17, 145, 17); font-weight: 500; font-size: 3rem;">
+        <h1 class="text-center mt-4 mb-4"
+            style="font-family: 'Grenze Gotisch', serif; color: rgb(17, 145, 17); font-weight: 500; font-size: 3rem;">
             Edit Your Recipe
         </h1>
-        
+
         {% csrf_token %}
-        
+
         <!-- Render form fields using crispy forms for better styling -->
         {{ form | crispy }}
-        
+
         <div class="text-center mt-4">
             <button type="submit" class="btn btn-primary">Update Recipe</button>
         </div>

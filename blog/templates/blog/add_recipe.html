@@ -4,7 +4,7 @@
 <div class="container my-5">
     <div class="form-container">
         <h1 class="text-center mb-4">Add a New Recipe</h1>
-        
+
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row justify-content-center">
@@ -56,13 +56,15 @@
                     <div class="form-group mb-3">
                         <label>Status:</label>
                         <div class="form-check">
-                            {{ form.status.0 }}  <!-- First radio button -->
+                            {{ form.status.0 }}
+                            <!-- First radio button -->
                             <label class="form-check-label" for="{{ form.status.0.id_for_label }}">
                                 {{ form.status.0.choice_label }}
                             </label>
                         </div>
                         <div class="form-check">
-                            {{ form.status.1 }}  <!-- Second radio button -->
+                            {{ form.status.1 }}
+                            <!-- Second radio button -->
                             <label class="form-check-label" for="{{ form.status.1.id_for_label }}">
                                 {{ form.status.1.choice_label }}
                             </label>

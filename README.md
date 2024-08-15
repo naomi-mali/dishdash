@@ -363,16 +363,27 @@ All the user stories are completed for project setup, project documentation and 
 As a developer, I need to set up the recipe blog project with all the necessary components and configurations so that I can ensure a smooth development and deployment process. **(User Story#37)** (must have)
 
 -Initialize and setup a GitHub repository with a README file using CI Gitpod template.
+
 -Install the latest version of Django.
+
 -Create a new Django project.
+
 -Add main app.
+
 -Verify that the project runs without errors using the Django development server.
+
 -Add a requirements.txt file listing all project dependencies.
+
 -Add env.py file to store sensitive information.
+
 -Add Procfile
--Implement a proper media storage configuration for user-uploaded images. - image database: Cloudinary
--Configure the project to use a ElephantSQL database.
--Update the settings.py file to notify Django of the installed supporting libraries .
+
+-Implement a proper media storage configuration for user-uploaded images. - image database: Cloudinary.
+
+-Configure the project to use a SQL database.
+
+-Update the settings.py file to notify Django of the installed supporting libraries.
+
 -Deploy project to Heroku to test deployment is successful.
 
 As a developer, I need to create a base.html file so that I can have a basic structure of the page for the project. **(User Story#38)** 
@@ -382,6 +393,457 @@ As a developer, I need to add static files and media so that I can build the web
 ### Features left to implement
 
 ### 1. Customizable User Profile Section
+
+#### Profile Picture/Avatar:
+- Allow users to upload a profile picture or choose an avatar.
+- Implement cropping and resizing functionality to maintain uniformity.
+#### Bio:
+- Add a field for users to write a short bio.
+- Implement character limit and optional formatting (bold, italics).
+#### Interests:
+- Provide options for users to select or add their interests (e.g., cuisine types, cooking techniques).
+- Consider using tags or predefined categories.
+####  Favorite Recipes:
+- Add a section for users to add their favorite recipes.
+- Enable the ability to mark a recipe as a favorite.
+
+### 2. Author’s Recipe Page
+
+- Clickable Author’s Name:
+- Make the author’s name clickable on each recipe page.
+#### Author’s Recipe List:
+- Create a dedicated page that lists all the recipes published by the selected author.
+- Add filters (e.g., by category, date) and sorting options.
+#### Follow/Unfollow Author (Optional):
+- Consider adding the ability for users to follow their favorite authors and get updates when new recipes 
+ are published.
+#### Backend Considerations:
+- Create or update the API to fetch all recipes by a particular author.
+- Optimize database queries to handle potentially large datasets.
+#### Frontend Considerations:
+- Design the author’s page to display the recipes in a visually appealing manner.
+- Ensure seamless navigation between the main recipe pages and the author’s page.
+
+### 3. Favorites Feature
+
+#### Add to Favorites:
+-Allow users to click a “heart” or “star” icon to add a recipe to their favorites.
+#### Favorites Management:
+- Create a dedicated section on the user’s profile to view and manage favorite recipes.
+- Enable options to remove recipes from favorites.
+- Notification (Optional):
+- Notify users when a favorited recipe is updated or has new comments.
+#### Backend Considerations:
+- Update user models to include a list of favorite recipes.
+- Create API endpoints for adding/removing recipes from favorites.
+#### Frontend Considerations:
+Implement the UI elements (like a heart icon) for adding/removing favorites.
+Ensure that favorited recipes are easily accessible from the user’s profile.
+
+## Design
+
+
+This page features a welcoming and vibrant design with a strong focus on community and food. It has a hero section with a large background image and centered text, promoting the site's theme. The recipe listings are displayed in a responsive grid layout, each card featuring an image, title, and details, with pagination at the bottom for easy navigation. The overall design is clean, user-friendly, and visually appealing, encouraging users to explore recipes and engage with the content.
+
+### Typography
+
+
+Combining [Grenze Gotisch](https://fonts.google.com/specimen/Grenze+Gotisch) and [Libre Baskerville](https://fonts.google.com/specimen/Libre+Baskerville) in the design of this page can create a sophisticated yet bold aesthetic. The pairing of these two fonts allows for a striking balance between modern elegance and historical flair, perfect for a website that wants to stand out while still being welcoming and readable.
+
+### Images
+
+ The images in this project are sourced from [Pexels](https://www.pexels.com/), [Unsplash](https://unsplash.com/) and [Pixabay](https://pixabay.com/). They were specifically selected to correlate with the main purpose of the website and to give user a imagery representation for the recipe content to increase impact of the design.
+
+ ## Technologies
+
+### Tools and Technologies
+ 
+ - Gitpod - used to develop the website
+- [GitHub](https://github.com/) to host the source code.
+- HTML - used to create main static content of the website.
+- Bootstrap - front end framework used.
+- CSS- used for website styling
+- JavaScript- used to create dynamic content and make page interactive
+- Python - used as the main language to code the logic of the page
+- Django - framework used
+- Heroku - to deploy the app
+- [FontAwesome](https://fontawesome.com/v5/search) v5.15.4 for website icons.
+- [Favicon.io](https://favicon.io/) to create the website favicon.
+- Google Chrome's Lighthouse to test accessibility for desktop and mobile devices.
+- [W3C HTML Markup Validator](https://validator.w3.org/) to validate the HTML Code.
+- [W3C Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/) to validate the CSS Code.
+- [jshint validator](https://jshint.com/) - used to check java script code for errors.
+- [Am I Responsive](http://amiresponsive.blogspot.com/) to create the Mockup image in this README.
+- Code Institute's Gitpod Template to generate the workspace for the project.
+
+#### Python Packages
+- Summernote - used to provide an editor for user and admin for adding recipes instructions and ingredients.
+- TemplateView, CreateView, ListView, DeleteView, UpdateView - used to allow CRUD functionality
+- LoginRequiredMixin, UserPassesTestMixin - used to test and secure views from unauthorised access.
+- messages - used to add action messages to user on submission
+- HttpResponseRedirect, reverse : used to direct user to specific URL
+
+#### External Packages
+
+- django.contrib.admin: Provides Django's built-in admin interface, which allows for easy management of site content and user permissions.
+
+- django.contrib.auth: Handles authentication, authorization, and user management (e.g., login, logout, user groups, and permissions).
+
+- django.contrib.contenttypes: Provides support for generic relationships between models, allowing models to interact with each other in flexible ways.
+
+- django.contrib.sessions: Manages session data, enabling the storage of user-specific data across requests (e.g., tracking logged-in users).
+
+- django.contrib.messages: Provides a messaging framework that allows you to store and retrieve temporary messages, often used for user notifications.
+
+- django.contrib.staticfiles: Manages static files (e.g., CSS, JavaScript, images), making it easier to serve these files in development and production.
+
+- cloudinary_storage: Allows for the integration of Cloudinary as a storage backend, enabling the storage and management of media files (e.g., images, videos) on Cloudinary.
+
+- django.contrib.sites: Provides support for associating models and settings with particular sites, useful for projects that run multiple sites from a single Django instance.
+
+- allauth: A versatile app for handling authentication, registration, account management, and third-party (social) authentication.
+
+- allauth.account: Handles user account management, including registration, login, email confirmation, password resets, and more.
+
+- allauth.socialaccount: Manages authentication via social media accounts (e.g., Google, Facebook), allowing users to log in using their social media credentials.
+
+- crispy_forms: Simplifies the creation and customization of forms in Django, making it easy to render Bootstrap-styled forms.
+
+- crispy_bootstrap5: Provides specific integration with Bootstrap 5 for crispy_forms, enabling the use of Bootstrap 5's features in Django forms.
+
+- django_summernote: Integrates the Summernote WYSIWYG editor with Django, allowing for rich text editing in forms and admin interfaces.
+
+- cloudinary: Provides Cloudinary support for managing media files within Django, including uploading, transforming, and serving images and videos.
+
+## Testing 
+
+### Responsiveness
+
+The site is designed to be flexible, fluid and responsive on all screen sizes. Website has been checked for responsiveness through Chrome Development tools. In order to do this, the following steps have been taken:
+
+1. Open the browser.
+2. Navigate to the Tasty Tales website (https://dishdashblog-15d6c6b4ee4f.herokuapp.com/)
+3. Right click anywhere on the page and got to "Inspect" to open Development Tools.
+4. Click on drop down menu: "Dimensions: Responsive" and choose "Responsive".
+5. Drag the side of the screen and change screen size, making sure the website looks good from 320px and up. Here, ensure there is consistency in design of the website on every screen size from small(mobile devices) to larger(desktop devices) and no scorll bar is showing for layout of site.
+
+Expected Result: Each page is responsive and user friendly when viewing the website on small and large screens.The pages have no design or accessibility issue in any of the screen sizes from 320px and up.
+
+Actual Result: Website is responsive with no scroll bar showing, the content is accessible to user to read and the images are not appearing stretched. Website is user friendly on small to large screen sizes.
+
+The following devices are used to check responsiveness:
+
+- Iphone 12 Pro
+- Samsung Galaxy S20 Ultra
+- iPad Mini
+- Surface Pro 7
+
+The website was also tested further by sharing the live link with friends and family. The site was tested on following devices:
+
+- Samsung S20 FE 5G
+- Iphone 12
+- iPad Air
+- Samsung S24 Ultra
+- Microsoft Surface
+- Asus X5 50
+- Lenovo Pad Pro 12.7
+
+The following browsers have been used to check responsiveness.
+- Chrome
+- Safari
+- Internet Explorer
+
+### Lighthouse
+
+### Home Page Desktop
+
+### Home Page 
+
+![Screenshot 2024-08-14 232939](https://github.com/user-attachments/assets/0db5fc2d-afc7-47ec-bdd3-ea18dd8c76d1)
+
+### Recipes Details
+
+![Screenshot 2024-08-14 233325](https://github.com/user-attachments/assets/041cbec8-ee45-49c3-9b0c-0dd273fe0e2b)
+
+### Search Recipes Page
+
+![Screenshot 2024-08-14 233430](https://github.com/user-attachments/assets/9635f4df-9334-4caf-8b71-82d8efaebf8e)
+
+### Sign Up Page
+
+![Screenshot 2024-08-14 233528](https://github.com/user-attachments/assets/dbc1a57f-afe5-48a1-8cb5-e5738ce1b1ac)
+
+### Sign In Page 
+
+![Screenshot 2024-08-14 233735](https://github.com/user-attachments/assets/5573e657-d05a-491b-8b4a-848ac8f71080)
+
+### Log Out Page
+
+![Screenshot 2024-08-14 233900](https://github.com/user-attachments/assets/a5d18fed-7fcb-4cb2-88ab-3a9331a45685)
+
+### Add Recipe Page
+
+![Screenshot 2024-08-14 233951](https://github.com/user-attachments/assets/2376a302-4fe2-4a1f-a8a9-ef38cc438e70)
+
+### Edit Recipe Page
+
+![Screenshot 2024-08-14 234153](https://github.com/user-attachments/assets/d888cf8d-0829-4726-8e75-53fe357b7ab8)
+
+### Delete Recipe Page
+
+![Screenshot 2024-08-14 234319](https://github.com/user-attachments/assets/ef67136b-d5f8-4066-a01c-b3f98100b91c)
+
+### My Drafts Page
+
+![Screenshot 2024-08-14 234035](https://github.com/user-attachments/assets/6e39756d-7152-4551-bc18-20a51540e4a3)
+
+
+## Validator Testing
+
+### HTML Validation
+
+All pages have been run through the [W3C VALIDATOR](https://validator.w3.org/).
+
+In order to check HTML code in dynamic website:
+
+- go to the live page
+
+- click right and select 'Inspect' then click right and select 'View page source'
+
+- code will open in new tab - copy the code
+
+- paste the code in the validator as 'direct input'
+
+### Home Page
+
+![Screenshot 2024-08-15 084826](https://github.com/user-attachments/assets/e4fd0674-b29d-4e69-89df-2eaabac2d9e4)
+
+### Search Recipes Page
+
+![Screenshot 22222222](https://github.com/user-attachments/assets/9e2ecc66-945c-47ee-8eed-69ad4efbea33)
+
+### Recipe Details Page
+
+![Screenshot 3333333](https://github.com/user-attachments/assets/183e7684-013c-47ba-a8e9-b209056b80fe)
+
+###  My Drafts Page
+
+![Screenshot 4444444](https://github.com/user-attachments/assets/daea4feb-d80a-4d17-ad39-32b44a79fb3d)
+
+### Sign In Page
+
+![Screenshot 77777](https://github.com/user-attachments/assets/7d3ff7b2-a38d-4e2a-889f-b38145987b8a)
+
+### Logout Page
+
+![Screenshot 666666666-08-15 085940](https://github.com/user-attachments/assets/abff27a9-76f9-4f89-93b0-1e6bc5ffab97)
+
+### Delete Recipe Page 
+
+![Screenshot 9999999](https://github.com/user-attachments/assets/1b85754f-7ac9-4788-81ad-11f452aa2e61)
+
+### Add Recipe Page | Update Recipe Page
+
+![Screenshot 2888888888](https://github.com/user-attachments/assets/4dfd8aaf-d1a9-4737-9bea-b2da7c93f39f)
+
+### Sign Up Page
+
+![Screenshot5555555](https://github.com/user-attachments/assets/3d574904-a5b3-4e80-9f3a-0702b70848ac)
+
+## CSS Validation
+
+No errors were found when passing through the official Jigsaw W3 Validator
+
+![Screenshot 2024-08-15 001052](https://github.com/user-attachments/assets/3c6b03dc-8c50-473c-a8ea-f3685e6364f6)
+
+## Python Validation
+
+No errors were found when passing each file through [CI Python Linter](https://pep8ci.herokuapp.com/)
+
+Couple of warnings when running settings.py file. Too long lines of code. Modifying the file for resolving the warnings rendered errors during deployment. I have left the mentioned lines in settings.py file unchanged for warnings. All other python files have passed the validation with no errors.
+
+
+![Screenshot 2024-08-15 001712](https://github.com/user-attachments/assets/4f72be90-02fb-461f-be3b-5f94b9adf15c)
+
+![Screenshot 2024-08-15 001750](https://github.com/user-attachments/assets/3c51d96c-040b-4713-98f0-ed72d71ba7de)
+
+![Screenshot 2024-08-15 002128](https://github.com/user-attachments/assets/7dd0a33b-eb82-41d2-a1c4-72011898ca90)
+
+![Screenshot 2024-08-15 002432](https://github.com/user-attachments/assets/fb3fc072-1cd3-4970-a755-d6cf245b56e1)
+
+![Screenshot 2024-08-15 002533](https://github.com/user-attachments/assets/6dffd0d4-5bfe-424f-966a-56db9387622f)
+
+![Screenshot 2024-08-15 002858](https://github.com/user-attachments/assets/ab51fb1e-be13-4c57-9478-bcc3992583cf)
+
+![Screenshot 2024-08-15 003025](https://github.com/user-attachments/assets/8728899d-ae5a-4326-b4e8-59837b8dc240)
+
+![Screenshot 2024-08-15 003059](https://github.com/user-attachments/assets/8d17597b-bac5-4a6b-b8c0-7ed795e04774)
+
+![Screenshot 2024-08-15 003135](https://github.com/user-attachments/assets/381e7dda-eb29-4cd9-b86d-b986d19a4841)
+
+
+## Manual Testing
+
+### Functional Testing
+
+| **Feature**                                             | **User Action**                                                                                                                                                        | **System Response**                                                                                                                                                                                                                       | **Status**      |
+|---------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| **Sign-Up Process**                                     | User clicks "Sign-Up" or "Sign up now", enters username, password, confirms password, optionally enters email, clicks "Sign-Up"                                       | User is redirected to the home page with a message "Successfully Signed up as 'USERNAME'" displayed at the top of the page.                                                                                                               | As expected     |
+| **Sign-In Process**                                     | User clicks "Sign-In" from the nav bar or sign-up page, enters correct username and password, clicks "Sign-In"                                                         | User is redirected to the home page with a message "Successfully Signed in as 'Username'" displayed at the top of the page.                                                                                                               | As expected     |
+| **Log-Out Process**                                     | User clicks "Log-Out" from nav bar, confirms sign-out by clicking "Sign-Out" on the sign-out page                                                                       | User is redirected to the home page with a message "You have signed out" displayed at the top of the page.                                                                                                                                 | As expected     |
+| **Navigating to the Recipes Tab**                       | User clicks on the "Recipes" tab from the nav bar                                                                                                                       | User is directed to the `index.html` page, where a list of published recipes is available to view. Six recipes are shown per page, with pagination navigation available if more than six recipes exist.                                  | As expected     |
+| **Pagination Navigation**                               | User clicks "Next" if on page 1, or "Previous" or "Next" if on any other page, within the `index.html`, `my_drafts.html`, or `recipe_search.html` pages             | User is directed to the relevant page, depending on whether they clicked "Next" or "Previous".                                                                                                                                            | As expected     |
+| **Viewing a Recipe in Detail**                          | User hovers over "View Recipe" button, button changes color to dark blue on hover, clicks the button                                                                    | User is directed to the `recipe_detail.html` page, displaying the full details of the selected recipe.                                                                                                                                     | As expected     |
+| **Like Functionality**                                  | 1. Logged-in user clicks on hollow heart icon 2. Logged-in user clicks on solid red heart icon 3. Unauthenticated user clicks on heart icon                           | 1. Icon changes to solid red, and like count increases by one. 2. Icon changes to hollow, and like count decreases by one. 3. Icon remains unchanged and like count does not change.                                                      | As expected     |
+| **Logging in to Leave a Comment**                       | User clicks "Sign-In" on the `recipe_detail.html` page, enters correct username and password, then clicks "Sign-In"                                                     | User is redirected back to the same recipe detail page, sees a success message at the top, and upon scrolling to the comments section, sees a comment form instead of the sign-in option.                                                 | As expected     |
+| **Leaving a Comment**                                   | Logged-in user enters a comment and clicks "Submit"                                                                                                                    | The user's comment appears in the comments section, in reverse chronological order (with the newest comments appearing first).                                                                                                           | As expected     |
+| **My Drafts Tab**                                       | Logged-in user clicks on "My Drafts" tab from the nav bar                                                                                                              | User is directed to the `my_drafts.html` page, displaying a list of their own draft recipes. If the user has no drafts, a message indicates that no draft recipes are available.                                                          | As expected     |
+| **Adding a Recipe**                                     | Logged-in user clicks "Add Recipe" tab from the nav bar, fills out the required fields on the form, optionally uploads an image, and clicks "Submit"                   | User is redirected to the `index.html` page with a success message displayed at the top. The recipe appears in the list if published, or on the `my_drafts.html` page if saved as a draft.                                              | As expected     |
+| **Deleting a Recipe**                                   | User clicks "Delete" on their own recipe from the `recipe_detail.html` page, confirms by clicking "Yes, Delete Recipe", or cancels by clicking "Cancel"                | 1. User is redirected to `index.html` with a success message displayed at the top, and the recipe is deleted. 2. User is redirected back to the `recipe_detail.html` page, and the recipe remains published.                             | As expected     |
+| **Editing a Recipe**                                    | User clicks "Edit" on their own recipe from the `recipe_detail.html` or `my_drafts.html` pages, modifies fields, and clicks "Submit"                                   | User is redirected to the `index.html` page with a success message if the recipe is published, or to the `my_drafts.html` page if saved as a draft. The updated recipe is displayed accordingly.                                         | As expected     |
+| **Searching for Recipes**                               | User clicks "Search Recipes" tab from the nav bar                                                                                                                      | User is directed to the `recipe_search.html` page, where they can use a form to search for recipes.                                                                                                                                         | As expected     |
+| **Adding a Recipe from the Search Page**                | User clicks "Add Your Recipe" link on the `recipe_search.html` page                                                                                                     | 1. Logged-in user is directed to the `add_recipe.html` page. 2. Unauthenticated user is redirected to the sign-in page and can proceed to sign in or sign up before being able to add a recipe.                                              | As expected     |
+
+### Links and Buttons
+
+| **Button / Anchor Link / Location**                                             | **Destination Page**                                        | **Page Opens In New Tab**    |
+|---------------------------------------------------------------------------------|-------------------------------------------------------------|------------------------------|
+| Dish Dash logo - nav bar                                                       | `index.html`                                                | no - as expected              |
+| Home tab - nav bar                                                              | `index.html`                                                | no - as expected              |
+| Recipes tab - nav bar                                                           | `index.html`                                              | no - as expected              |
+| Search Recipes tab - nav bar                                                    | `recipe_search.html`                                        | no - as expected              |
+| Add Recipe tab - nav bar (for logged-in users only)                             | `add_recipe.html`                                           | no - as expected              |
+| My Drafts tab - nav bar (for logged-in users only)                              | `my_drafts.html`                                            | no - as expected              |
+| Logout - nav bar (for logged-in users only)                                     | `logout.html`                                               | no - as expected              |
+| SignUp Now - from `index.html` (unauthorised users only)                        | `signup.html`                                               | no - as expected              |
+| Sign Up - nav bar (unauthorised users only)                                     | `signup.html`                                               | no - as expected              |
+| Sign In - nav bar (unauthorised users only)                                     | `login.html`                                                | no - as expected              |
+| Sign in - comments section, `recipe_detail.html` (unauthorised users only)      | `login.html`                                                | no - as expected              |
+| Edit - `recipe_detail.html` (on user's own recipes only)                        | `update_recipe.html`                                        | no - as expected              |
+| Delete - `recipe_detail.html` (on user's own recipes only)                      | `recipe_confirm_delete.html`                                | no - as expected              |
+| All recipes - from `recipe_search.html` (for all users)                         | `recipes.html`                                              | no - as expected              |
+| Add Your Recipe - from `recipe_search.html` (1. for unauthorised users. 2. for authorised users) | 1. `login.html`, 2. `add_recipe.html`   | no - as expected              |
+| "GitHub" Icon - footer                                                          | <https://github.com/naomi-mali>                             | yes - as expected             |
+| "LinkedIn" Icon - footer                                                        | <https://www.linkedin.com/in/naomi-mali-69353b182/>     | yes - as expected             |
+
+### Negative Testing
+
+Testing is performed on all forms in the website and for user authentication to Create, Update, Delete recipes.
+
+|  Function  |   Action    |    Expected    |  Actual  |
+|------------|--------------|---------------|-----------|
+|Sign Up   |	user doesn't fill in all required fields (username and password twice), user enters password twice but doesn't match, username enters too common password or less than 8 characters |	user received a prompt with directions, submission unsuccessful user can enter details again | as expected |
+|Sign-in |	user doesn't fill in all required fields (username and password). user enters incorrect username or password | user receives prompt why sign-in is unsuccessful and can enter details again |	as expected |
+| Add Recipe form | user doesn't fill in all required fields(marked with *) | user receives a prompt to fill in the required field. form doesn't submit. user can enter details again | as expected |
+|Edit Recipe |	1.user tries to access URL to edit recipe but not logged in 2. user tries to access the url from different username	| 1.user directed to login page 2. user receives error 403 |	as expected |
+| Delete Recipe |	1.user tries to access URL to delete recipe but not logged in 2. user tries to access the url from different username | 1.user directed to login page 2. user receives error 403 | as expected |
+| Comment form |	user tries to submit empty comment form |	user receives prompt Please fill in this field, form is not submitted |	as expected |
+
+## Automated Testing
+
+### Unit Testing
+
+No unit testing performed at this stage.
+
+## Bugs
+
+Bug Fix: Cloudinary Integration Not Working
+
+Issue: Cloudinary was not functioning as expected within the application. Attempts to upload or manage media files via Cloudinary failed, and the application defaulted to local file storage instead.
+
+Cause: The issue was traced to a missing configuration in the settings.py file. Specifically, the CLOUDINARY_STORAGE setting, which is required to connect the Django application to the Cloudinary service, was not included. Without this configuration, Django was unable to authenticate with Cloudinary using the CLOUDINARY_URL environment variable, leading to the failure.
+
+Fix: The following configuration was added to settings.py:
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+}
+ This setting ensures that Django correctly connects to the Cloudinary account using the credentials stored in the CLOUDINARY_URL environment variable. With this fix, media files are now successfully uploaded and managed through Cloudinary, and the integration works as intended.
+
+Status: Resolved. Cloudinary is now fully functional in the application.
+
+### Recipe Search Page Not Loading
+
+The recipe search functionality was not working correctly. When I attempted to search for recipes, the application failed  resulting in error.
+Cause: The issue was caused by a typo in the views.py file. Specifically, in the template_name parameter, the template was incorrectly referenced as search._recupe.html instead of the correct search_recipe.html. This typo caused Django to look for a non-existent template file, leading to the failure.
+
+Fix: The typo in the views.py file was corrected as follows:
+### Incorrect
+template_name = 'search._recupe.html'
+
+### Corrected
+template_name = 'search_recipe.html'
+
+This change ensures that the correct template is loaded when users search for recipes, allowing the search functionality to work as expected.
+
+## Deployment
+
+### Version Control
+
+- The website was developed through Gitpod.
+
+- Code has been pushed to repository on Github with following git commands:
+
+    - git add . - to add files ready to commit
+    - git commit -m "message" - to commit the code to local repository ready to be pushed
+    - git push - final command used to push committed code to remote repo on Github
+
+
+### Deployment In Heroku
+
+- The project has been deployed on Heroku as follows:
+     - Use: pip freeze > requirements.txt to add external libraries to deployed app.
+     - Create Heroku account
+     - In the top right, click 'New'
+     - Click 'Create new app'
+     - Give your app a name and select your region from drop down
+     - Click 'Create new app'
+     - Go to 'settings' tab, it's important you do it before deployment
+     - Scroll down to 'config vars' section and key:
+          - PORT and value: 8000
+          - CLOUDINARY_URL: 'API key to your cloudinary account'
+          - DATABASE_URL : 'URL from your database account'
+          - SECRET_KEY: 'Generate your own secret key'
+     - Scroll down to 'Buildpacks' section
+     - Click 'Add buildpack'
+     - Add Python as first dependency and select 'Save changes'
+     - Add node.js as a second dependency and save again (This is settings section done)
+     - Select 'Deploy' tab at the top
+     - Select 'Github' from 'Deployment method'
+     - type the name of how you called project in Github and click 'search'
+     - Scroll down and select manual deployment method
+     - You can also use Auto deployment method to allow the project to update every time you push the code.
+     - You can now click to view the app ready and running
+- For this project I used Manual deployment method to deploy the current state of the branch, every time I pushed the code from Gitpod.
+
+## Cloning the Repository
+On Github navigate to the repository
+Click "Code" drop down menu - a green button shown right above the file list.
+Copy the URL of the repository using "HTTPS", "SSH" or "Github CLI".
+Open Git Bash.
+Change the current working directory to the location where you want the cloned directory.
+Type "git clone", and then paste the URL copied earlier.
+Press enter to create local clone. A clone of the repository will now be created.
+
+## Forking
+On Github navigate to the repository.
+Click "Fork" located towards top right corner on GitHub page.
+Select "owner" for the forked repository from the dropdown menu under "owner".
+It will create forked repo under the same name as original by default. But you can type a name in "Repository name" or add a description in "Description" box.
+Click on "Create fork". A forked repo is created.
+Forking allows you to make any changes without affecting original project. You can send the the suggestions by submitting a pull request. Then the Project Owner can review the pull request before accepting the suggestions and merging them.
+When you have fork to a repository, you don't have access to files locally on your device, for getting access you will need to clone the forked repository.
+
+## Credits
+
+All images used on the website are sourced from [Pexels](https://www.pexels.com/ro-ro/fotografie/om-pat-sta-jos-sta-a-ezat-4132936/) and [Unsplash](https://unsplash.com/).
+All the recipes on the website are taken from [Tasty](https://tasty.co/)
+All the fonts used throughout this project are sourced from [Google Fonts](https://fonts.google.com/)
+In creating my models and understanding the CRUD functionality[Youtube-Tutorial](https://www.youtube.com/watch?v=opjyyXoqrxg)
+
+## Acknowledgements
+- I followed the steps from [I Think Therefore I Blog](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FSD101_WTS+4/courseware/713441aba05441dfb3a7cf04f3268b3f/824fccecd0fe4e44871eeabcbf69d830/) 
+- I am grateful to the Code Institute's Tutor support for solving all my doubts.
+
 
 
 

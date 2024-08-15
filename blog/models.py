@@ -10,11 +10,16 @@ STATUS = (
     (1, "Published"),
 )
 
+
 def validate_nonzero(value):
     if value <= 0:
         raise ValidationError(f'{value} must be greater than zero.')
 
+
 class Recipe(models.Model):
+    """
+    A recipe model to create and display recipes added by users.
+    """
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True)
     author = models.ForeignKey(
@@ -56,7 +61,12 @@ class Recipe(models.Model):
     def total_num_of_likes(self):
         return self.likes.count()    
 
+
 class Comment(models.Model):
+    """
+    A Comment Model to create and handle comments added by users
+    Before the comment is published, it needs to be approved by admin
+    """
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(

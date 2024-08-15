@@ -13,19 +13,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta 
-    name="description" 
-    content="Dish Dash! A recipe blog website from food-loving people, who love to explore, taste and cook variety of recipes">
-    <meta 
-    name="keywords" 
-    content="recipes, cooking tips, easy meals, healthy recipes, gluten-free, quick dinners, food blog, meal prep, baking tips">
+    <meta name="description"
+        content="Dish Dash! A recipe blog website from food-loving people, who love to explore, taste and cook variety of recipes">
+    <meta name="keywords"
+        content="recipes, cooking tips, easy meals, healthy recipes, gluten-free, quick dinners, food blog, meal prep, baking tips">
     <meta name="author" content="Dish Dash">
-    
+
     <!-- Bootstrap css/js CDN links -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
 
     <!-- Font Awesome link -->
     <script src="https://kit.fontawesome.com/969e4e047a.js" crossorigin="anonymous"></script>
@@ -33,22 +32,24 @@
     <!-- Google Fonts CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
-    
+
     <!-- Link to your custom CSS file -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <title> Dish Dash </title>   
+    <title> Dish Dash </title>
 </head>
 
 <body class="d-flex flex-column h-100">
     <!-- Navigation -->
-     <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <!-- Brand Logo -->
             <a class="navbar-brand" href="{{ home_url }}">
@@ -56,63 +57,62 @@
             </a>
             <!-- Toggler Button for Mobile View -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-              aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Navbar Links -->
-             <div class="collapse navbar-collapse" id="navbarText">
+            <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page"
-                          href="{{ home_url }}">Home</a>
+                            href="{{ home_url }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == recipe_search_url %}active" aria-current="page{% endif %}" 
-                          href="{% url 'recipe_search' %}">Search Recipes </a> 
+                        <a class="nav-link {% if request.path == recipe_search_url %}active"
+                            aria-current="page{% endif %}" href="{% url 'recipe_search' %}">Search Recipes </a>
                     </li>
                     {% if user.is_authenticated %}
-                        <!-- Add navbars -->
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == add_recipe_url %}active" aria-current="page{% endif %}" 
+                    <!-- Add navbars -->
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == add_recipe_url %}active" aria-current="page{% endif %}"
                             href="{% url 'add_recipe' %}">Add Recipe</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == recipe_drafts_url %}active" aria-current="page{% endif %}" 
-                            href="{% url 'recipe_drafts' %}">My Drafts</a> 
-                          </li> 
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" 
-                                href="{% url 'account_logout' %}">Log Out</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-                                href="{% url 'account_signup' %}">Sign Up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page" 
-                                href="{% url 'account_login' %}">Log In</a>
-                        </li>
-                        {% endif %}      
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == recipe_drafts_url %}active"
+                            aria-current="page{% endif %}" href="{% url 'recipe_drafts' %}">My Drafts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'account_logout' %}">Log Out</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'account_signup' %}">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'account_login' %}">Log In</a>
+                    </li>
+                    {% endif %}
                 </ul>
-             </div>
-         </div>
-    </nav>
-<!-- displaying Django messages -->
-<div class="container" style="background-color: rgb(76, 233, 76); border-radius: 15px; color:rgb(20, 19, 19);">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        {% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissible
-          fade show" id="msg" role="alert">
-          {{ message | safe }}
-          <button type="button" class="btn-close"
-            data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         </div>
-        {% endfor %}
-      </div>
+    </nav>
+    <!-- displaying Django messages -->
+    <div class="container" style="background-color: rgb(76, 233, 76); border-radius: 15px; color:rgb(20, 19, 19);">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible
+          fade show" id="msg" role="alert">
+                    {{ message | safe }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </div>
     <main class="flex-shrink-0">
         {% if user.is_authenticated %}
         <p class="text-end m-3">You are logged in as {{ user }}</p>

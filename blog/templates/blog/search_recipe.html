@@ -8,7 +8,8 @@
         <div class="row justify-content-center mb-3">
             <div class="col-md-8">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search by recipe name or ingredients" aria-label="Search Recipes" aria-describedby="button-search" value="{{ request.GET.q }}">
+                    <input type="text" name="q" class="form-control" placeholder="Search by recipe name or ingredients"
+                        aria-label="Search Recipes" aria-describedby="button-search" value="{{ request.GET.q }}">
                     <button class="btn btn-success" type="submit" id="button-search">
                         <i class="fa-solid fa-magnifying-glass"></i> Search
                     </button>
@@ -18,70 +19,68 @@
     </form>
 
     {% if recipes %}
-        <div class="row">
-            {% for recipe in recipes %}
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="{{ recipe.featured_image.url }}" class="card-img-top" alt="{{ recipe.title }}" style="height: 400px; object-fit: cover;">
-                        <div class="card-body">
-                            <p class="author text-muted">Posted by: {{ recipe.author }} | {{ recipe.created_on }}</p>
-                            <h2 class="card-title">{{ recipe.title }}</h2>
-                            <p class="card-text text-muted h6">
-                                {% if recipe.created_on %}
-                                    {{ recipe.created_on|date:"F j, Y" }}  <!-- Format the date as needed -->
-                                {% endif %}
-                            </p>
-                            <hr>
-                            <a href="{% url 'recipe_detail' recipe.slug %}" class="btn btn-primary">View Recipe</a>
-                        </div>
-                    </div>
+    <div class="row">
+        {% for recipe in recipes %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ recipe.featured_image.url }}" class="card-img-top" alt="{{ recipe.title }}"
+                    style="height: 400px; object-fit: cover;">
+                <div class="card-body">
+                    <p class="author text-muted">Posted by: {{ recipe.author }} | {{ recipe.created_on }}</p>
+                    <h2 class="card-title">{{ recipe.title }}</h2>
+                    <p class="card-text text-muted h6">
+                        {% if recipe.created_on %}
+                        {{ recipe.created_on|date:"F j, Y" }}
+                        <!-- Format the date as needed -->
+                        {% endif %}
+                    </p>
+                    <hr>
+                    <a href="{% url 'recipe_detail' recipe.slug %}" class="btn btn-primary">View Recipe</a>
                 </div>
-            {% endfor %}
-        </div>
-
-        <div class="row">
-            <div class="col text-center">
-                {% if is_paginated %}
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            {% if page_obj.has_previous %}
-                                <li class="page-item">
-                                    <a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                            {% endif %}
-
-                            {% for num in page_obj.paginator.page_range %}
-                                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
-                                    <a class="page-link" href="?q={{ request.GET.q }}&page={{ num }}">{{ num }}</a>
-                                </li>
-                            {% endfor %}
-
-                            {% if page_obj.has_next %}
-                                <li class="page-item">
-                                    <a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                {% endif %}
             </div>
         </div>
-        {% elif request.GET.q %}
-        <div class="row">
-            <div class="col text-center">
-                <p class="lead">No recipes found. Try searching with different keywords.</p>
-            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            {% if is_paginated %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                    <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                        <a class="page-link" href="?q={{ request.GET.q }}&page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
         </div>
+    </div>
+    {% elif request.GET.q %}
+    <div class="row">
+        <div class="col text-center">
+            <p class="lead">No recipes found. Try searching with different keywords.</p>
+        </div>
+    </div>
     {% endif %}
 </div>
 {% endblock content %}
-
-
-
-
-
-

@@ -5,10 +5,11 @@
 
 {% block content %}
 <!-- Delete recipe confirmation form -->
-<div class="container mt-5 text-center" style="max-width: 600px; background-color: rgba(27, 170, 27, 0.623);"
+<div class="container mt-5 text-center" style="max-width: 600px; background-color: rgba(27, 170, 27, 0.623);">
     <div class="row">
         <div class="col-md-8 mt-3 offset-md-2">
-            <h1 class="mb-4" style=" font-family: 'Grenze Gotisch', serif; color: rgb(255, 255, 255);">Confirm Deletion</h1>
+            <h1 class="mb-4" style=" font-family: 'Grenze Gotisch', serif; color: rgb(255, 255, 255);">Confirm Deletion
+            </h1>
             <p class="mb-2">Are you sure you want to delete your recipe - <strong>{{ recipe.title }}</strong>?</p>
             <p class="mb-4">This action cannot be undone.</p>
             <form method="POST">
@@ -19,5 +20,5 @@
         </div>
     </div>
 </div>
-,<br>
+<br>
 {% endblock content %}
