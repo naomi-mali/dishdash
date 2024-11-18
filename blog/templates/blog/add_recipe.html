@@ -9,67 +9,90 @@
             {% csrf_token %}
             <div class="row justify-content-center">
                 <div class="col-md-8">
+                    <!-- Recipe Title -->
                     <div class="form-group mb-3">
                         <label for="{{ form.title.id_for_label }}">Recipe Title:</label>
                         {{ form.title }}
                     </div>
+
+                    <!-- Featured Image -->
                     <div class="form-group mb-3">
                         <label for="{{ form.featured_image.id_for_label }}">Featured Image:</label>
-                        {{ form.featured_image}}
+                        {{ form.featured_image }}
                     </div>
+
+                    <!-- Preparation Time -->
                     <div class="form-group mb-3">
                         <label for="{{ form.prep_time.id_for_label }}">Preparation Time:</label>
-                        {{ form.prep_time}}
+                        {{ form.prep_time }}
                     </div>
+
+                    <!-- Cooking Time -->
                     <div class="form-group mb-3">
                         <label for="{{ form.cooking_time.id_for_label }}">Cooking Time:</label>
                         {{ form.cooking_time }}
                     </div>
+
+                    <!-- Servings -->
                     <div class="form-group mb-3">
                         <label for="{{ form.servings.id_for_label }}">Servings:</label>
-                        {{ form.servings}}
+                        {{ form.servings }}
                     </div>
+
+                    <!-- Total Calories -->
                     <div class="form-group mb-3">
                         <label for="{{ form.total_calories.id_for_label }}">Total Calories:</label>
                         {{ form.total_calories }}
                     </div>
+
+                    <!-- Calories from Protein -->
                     <div class="form-group mb-3">
                         <label for="{{ form.calories_protein.id_for_label }}">Calories from Protein:</label>
                         {{ form.calories_protein }}
                     </div>
+
+                    <!-- Calories from Carbohydrates -->
                     <div class="form-group mb-3">
                         <label for="{{ form.calories_carbs.id_for_label }}">Calories from Carbohydrates:</label>
                         {{ form.calories_carbs }}
                     </div>
+
+                    <!-- Calories from Fats -->
                     <div class="form-group mb-3">
                         <label for="{{ form.calories_fats.id_for_label }}">Calories from Fats:</label>
                         {{ form.calories_fats }}
                     </div>
+
+                    <!-- Ingredients -->
                     <div class="form-group mb-3">
                         <label for="{{ form.ingredients.id_for_label }}">Ingredients:</label>
                         {{ form.ingredients }}
                     </div>
+
+                    <!-- Instructions -->
                     <div class="form-group mb-3">
                         <label for="{{ form.instructions.id_for_label }}">Instructions:</label>
                         {{ form.instructions }}
                     </div>
+
+                    <!-- Status (Radio Buttons) -->
                     <div class="form-group mb-3">
                         <label>Status:</label>
                         <div class="form-check">
                             {{ form.status.0 }}
-                            <!-- First radio button -->
                             <label class="form-check-label" for="{{ form.status.0.id_for_label }}">
                                 {{ form.status.0.choice_label }}
                             </label>
                         </div>
                         <div class="form-check">
                             {{ form.status.1 }}
-                            <!-- Second radio button -->
                             <label class="form-check-label" for="{{ form.status.1.id_for_label }}">
                                 {{ form.status.1.choice_label }}
                             </label>
                         </div>
                     </div>
+
+                    <!-- Submit Button -->
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit Recipe</button>
                     </div>

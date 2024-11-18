@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from django.utils.text import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from django.core.exceptions import ValidationError
 
 STATUS = (
     (0, "Draft"),
@@ -20,7 +20,7 @@ class Recipe(models.Model):
     """
     A recipe model to create and display recipes added by users.
     """
-    title = models.CharField(max_length=200, unique=True)
+    title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='recipe_owner')
@@ -33,13 +33,13 @@ class Recipe(models.Model):
         validators=[validate_nonzero, MaxValueValidator(50)], default=1)
     # Macro nutrients in calories
     total_calories = models.PositiveIntegerField(
-        validators=[validate_nonzero], default=0, help_text="Total calories in the recipe")
+        validators=[validate_nonzero], default=1, help_text="Total calories in the recipe")
     calories_protein = models.PositiveIntegerField(
-        validators=[validate_nonzero], default=0, help_text="Calories from protein")
+        validators=[validate_nonzero], default=1, help_text="Calories from protein")
     calories_carbs = models.PositiveIntegerField(
-        validators=[validate_nonzero], default=0, help_text="Calories from carbohydrates")
+        validators=[validate_nonzero], default=1, help_text="Calories from carbohydrates")
     calories_fats = models.PositiveIntegerField(
-        validators=[validate_nonzero], default=0, help_text="Calories from fats")  
+        validators=[validate_nonzero], default=1, help_text="Calories from fats")  
     ingredients = models.TextField(blank=False)
     instructions = models.TextField(blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -52,14 +52,20 @@ class Recipe(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title)
+            unique_slug = base_slug
+            counter = 1
+            while Recipe.objects.filter(slug=unique_slug).exists():
+                unique_slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = unique_slug
         super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.title} || written by {self.author}'
     
     def total_num_of_likes(self):
-        return self.likes.count()    
+        return self.likes.count()
 
 
 class Comment(models.Model):
@@ -80,4 +86,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.author} on {self.recipe}'
-        

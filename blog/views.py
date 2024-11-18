@@ -2,38 +2,43 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic, View
 from django.contrib import messages
 from .models import Recipe
-from .forms import CommentForm
+from .forms import CommentForm, RecipeForm
 from django.views.generic import ListView
 from django.db.models import Q
-from .forms import RecipeForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-
-
+from django.core.exceptions import ValidationError
 
 
 # Create your views here.
+
 class RecipeList(generic.ListView):
     """
-    Class based view to display list of published recipes.
+    Class-based view to display a list of published recipes.
     Displays 9 recipes per page, filtered to show only
-    recipes with a status of 'published',
+    recipes with a status of 'published'.
     The recipes are ordered by the date they are created,
     with the latest ones appearing first.
-
     """
     queryset = Recipe.objects.filter(status=1)
     template_name = "blog/index.html"
     paginate_by = 9
-    
+
+
 def post_detail(request, slug):
-    queryset = Recipe.objects.filter(status=1)
-    recipe = get_object_or_404(queryset, slug=slug)
+    try:
+        recipe = Recipe.objects.get(slug=slug)
+    except Recipe.DoesNotExist:
+        raise Http404("Recipe not found")
+
+    if recipe.status == 0 and (not request.user.is_staff and request.user != recipe.author):
+        raise Http404("Recipe is in draft status and cannot be viewed by this user.")
+
     comments = recipe.comments.all().order_by("-created_on")
     comment_count = recipe.comments.filter(approved=True).count()
+
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
@@ -44,7 +49,12 @@ def post_detail(request, slug):
             messages.add_message(
                 request, messages.SUCCESS,
                 'Your comment was submitted and is awaiting approval from admin'
-    )
+            )
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                'There was an issue submitting your comment.'
+            )
 
     comment_form = CommentForm()
 
@@ -56,14 +66,14 @@ def post_detail(request, slug):
             "comments": comments,
             "comment_count": comment_count,
             "comment_form": comment_form,
-    },
+        },
     )
 
 class RecipeSearchList(ListView):
     """
     View to display a list of recipes based on user search.
     Searches for recipes based on title, cuisine type, and description.
-    Retrieves search for only recipes with status 'published'.
+    Retrieves search results for only recipes with status 'published'.
     Displays 9 recipes per page.
     """
     model = Recipe
@@ -86,50 +96,45 @@ class RecipeSearchList(ListView):
 
 
 class AddRecipe(LoginRequiredMixin, CreateView):
-    """
-    Class based view to add/create recipes
-    Requires user to be logged in.
-    On successful form submission, redirects to the 'recipes' page.
-    If the form is valid, sets the author of the recipe
-    to the current logged-in user.
-    Displays a success message to the user.
-    """
-
     model = Recipe
     form_class = RecipeForm
     template_name = "blog/add_recipe.html"
     success_url = reverse_lazy('home')
-    
+
     def form_valid(self, form):
+        # Custom validation example
+        if not form.cleaned_data['title']:
+            raise ValidationError('Title is required.')
+
         form.instance.author = self.request.user
         success_message = "Your recipe has been posted successfully."
         messages.add_message(self.request, messages.SUCCESS, success_message)
-        return super(AddRecipe, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class UpdateRecipe(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    """
-    Class based view to edit/update recipe
-    Requires the user to be logged in and be the author of the recipe.
-    On successful form submission, redirects to the 'recipes' page.
-    Handles the form submission when valid.
-    Displays a success message to the user
-    on successful update.
-    """
     model = Recipe
     form_class = RecipeForm
     template_name = "blog/update_recipe.html"
-    
+
     def get_success_url(self):
-        # Redirect to the detail page of the updated recipe
-        return reverse_lazy('recipe_detail', kwargs={'slug': self.object.slug})
-    
+        # Redirect to the drafts page after a successful update
+        return reverse_lazy('my_drafts')
+
     def test_func(self):
-        # Ensures that only the author of the recipe can edit it
         return self.request.user == self.get_object().author
 
     def form_valid(self, form):
-        # Associates the current user as the author
+        # Custom validation example
+        if not form.cleaned_data['title']:
+            raise ValidationError('Title cannot be empty.')
+        
+        # Ensure the slug is unique after update
+        slug = form.cleaned_data.get('slug')
+        if slug:
+            if Recipe.objects.filter(slug=slug).exclude(pk=self.object.pk).exists():
+                form.cleaned_data['slug'] = f"{slug}-{self.object.pk}"
+
         form.instance.author = self.request.user
         success_message = "Your recipe has been updated successfully."
         messages.success(self.request, success_message)
@@ -138,10 +143,10 @@ class UpdateRecipe(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
-    Class based view to delete recipe.
-    Checks if the user is authorised to delete recipe.
+    Class-based view to delete recipe.
+    Checks if the user is authorized to delete the recipe.
     Manages delete request and override form_valid to
-    displays a success message to user after successful deletion.
+    display a success message to user after successful deletion.
     """
     model = Recipe
     success_url = reverse_lazy('home')
@@ -149,17 +154,15 @@ class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         return self.request.user == self.get_object().author
 
-    def delete(self, request, *args, **kwargs):
-        # Perform the deletion and get the response
-        response = super().delete(request, *args, **kwargs)
-        # Add a success message
-        messages.success(self.request, "Your recipe has been deleted successfully.")
-        return response
+    def form_valid(self, request, *args, **kwargs):
+        success_message = "Your recipe has been deleted successfully."
+        messages.add_message(self.request, messages.SUCCESS, success_message)
+        return super().delete(request, *args, **kwargs)
 
 
 class UserDrafts(ListView):
     """
-    Class based view to display user's draft recipes.
+    Class-based view to display user's draft recipes.
     Displays drafts created by the currently logged-in user.
     Only visible to the draft author.
     Returns a list of recipes with status of 'draft'.
@@ -179,8 +182,8 @@ class RecipeLike(View):
     View to handle like/unlike recipe.
     Allows only logged-in users to like/unlike the recipe.
     Checks if the user has liked/unliked the recipe.
-    Adds like if not/ removes like if yes
-    Redirects user back to same page.
+    Adds like if not/ removes like if yes.
+    Redirects user back to the same page.
     """
     def post(self, request, slug):
         recipe = get_object_or_404(Recipe, slug=slug)
@@ -192,5 +195,3 @@ class RecipeLike(View):
                 recipe.likes.add(request.user)
 
         return redirect(reverse('recipe_detail', args=[slug]))
-
- 
