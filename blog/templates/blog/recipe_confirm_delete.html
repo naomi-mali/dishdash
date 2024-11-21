@@ -4,21 +4,33 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<!-- Delete recipe confirmation form -->
-<div class="container mt-5 text-center" style="max-width: 600px; background-color: rgba(27, 170, 27, 0.623);">
+<!-- Delete Recipe Confirmation Form -->
+<div class="container mt-5 text-center" 
+     style="max-width: 600px; background-color: rgba(27, 170, 27, 0.623); 
+            border-radius: 10px; padding: 20px;">
     <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <h1 class="mb-4" style=" font-family: 'Grenze Gotisch', serif; color: rgb(255, 255, 255);">Confirm Deletion
+        <div class="col-md-8 offset-md-2">
+            <h1 class="mb-4" 
+                style="font-family: 'Grenze Gotisch', serif; 
+                       color: rgb(255, 255, 255); 
+                       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+                Confirm Deletion
             </h1>
-            <p class="mb-2">Are you sure you want to delete your recipe - <strong>{{ recipe.title }}</strong>?</p>
+            <p class="mb-2">
+                Are you sure you want to delete your recipe - 
+                <strong>{{ recipe.title }}</strong>?
+            </p>
             <p class="mb-4">This action cannot be undone.</p>
+            
             <form method="POST">
                 {% csrf_token %}
                 <input type="submit" value="Yes, Delete Recipe" class="btn btn-danger mb-4">
             </form>
-            <a href="{% url 'recipe_detail' recipe.slug %}" class="btn btn-success mb-5">Cancel</a>
+            
+            <a href="{% url 'recipe_detail' recipe.slug %}" class="btn btn-success mb-4">
+                Cancel
+            </a>
         </div>
     </div>
 </div>
-<br>
-{% endblock content %}
+{% endblock %}

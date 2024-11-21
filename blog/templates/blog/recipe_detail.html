@@ -1,167 +1,131 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block content %}
 
+{% block content %}
 <div class="container mt-4">
     <div class="row">
-        <!-- Recipe Image on the Left -->
+        <!-- Recipe Image -->
         <div class="col-md-6">
             {% if "placeholder" in recipe.featured_image.url %}
-            <img class="card-img-top" src="{% static 'images/food2.jpg' %}" alt="food image"
-                style="height: 400px; padding-top: 25px;">
+                <img class="card-img-top" src="{% static 'images/food2.jpg' %}" alt="food image" style="height: 400px; padding-top: 25px;">
             {% else %}
-            <img class="card-img-top" src="{{ recipe.featured_image.url }}" alt="{{ recipe.title }}"
-                style="height: 400px; padding-top: 25px;">
+                <img class="card-img-top" src="{{ recipe.featured_image.url }}" alt="{{ recipe.title }}" style="height: 400px; padding-top: 25px;">
             {% endif %}
         </div>
 
-        <!-- Recipe Details and Like/Unlike Section on the Right -->
+        <!-- Recipe Details -->
         <div class="col-md-6">
             <div class="d-flex flex-column h-100">
-                <!-- Recipe Details -->
                 <div class="mb-4">
-                    <h2 class="display-4"
-                        style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+                    <h2 class="display-4" style="
+                        font-family: 'Grenze Gotisch', serif; 
+                        color: rgb(28, 196, 28); 
+                        font-weight: 700; 
+                        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
                         {{ recipe.title }}
                     </h2>
-
                     <p class="text-muted mb-2">Posted by: {{ recipe.author }} | {{ recipe.created_on }}</p>
                     <hr>
-                    <p><strong><i class="fa-solid fa-fire" style="color: rgb(28, 196, 28);"></i> Total
-                            Calories:</strong> {{ recipe.total_calories }}</p>
-                    <p><strong><i class="fa-solid fa-dna" style="color: rgb(28, 196, 28);"></i> Protein:</strong>
-                        {{ recipe.calories_protein }}g</p>
-                    <p><strong><i class="fa-solid fa-wheat-awn" style="color: rgb(28, 196, 28);"></i> Carbs:</strong>
-                        {{ recipe.calories_carbs }}g</p>
-                    <p><strong><i class="fa-solid fa-bacon" style="color: rgb(28, 196, 28);"></i> Fats:</strong>
-                        {{ recipe.calories_fats }}g</p>
-                    <p><strong><i class="fa-solid fa-mortar-pestle" style="color: rgb(28, 196, 28);"></i> Prep
-                            Time:</strong> {{ recipe.prep_time }} minutes</p>
-                    <p><strong><i class="fa-solid fa-clock" style="color: rgb(28, 196, 28);"></i> Cooking Time:</strong>
-                        {{ recipe.cooking_time }} minutes</p>
-                    <p><strong><i class="fa-solid fa-bowl-food" style="color: rgb(28, 196, 28);"></i> Servings:</strong>
-                        {{ recipe.servings }}</p>
+                    <p><strong><i class="fa-solid fa-fire" style="color: rgb(28, 196, 28);"></i> Total Calories:</strong> {{ recipe.total_calories }}</p>
+                    <p><strong><i class="fa-solid fa-dna" style="color: rgb(28, 196, 28);"></i> Protein:</strong> {{ recipe.calories_protein }}g</p>
+                    <p><strong><i class="fa-solid fa-wheat-awn" style="color: rgb(28, 196, 28);"></i> Carbs:</strong> {{ recipe.calories_carbs }}g</p>
+                    <p><strong><i class="fa-solid fa-bacon" style="color: rgb(28, 196, 28);"></i> Fats:</strong> {{ recipe.calories_fats }}g</p>
+                    <p><strong><i class="fa-solid fa-mortar-pestle" style="color: rgb(28, 196, 28);"></i> Prep Time:</strong> {{ recipe.prep_time }} minutes</p>
+                    <p><strong><i class="fa-solid fa-clock" style="color: rgb(28, 196, 28);"></i> Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
+                    <p><strong><i class="fa-solid fa-bowl-food" style="color: rgb(28, 196, 28);"></i> Servings:</strong> {{ recipe.servings }}</p>
                     {% if user.id == recipe.author.id %}
-                    <a href="{% url 'update_recipe' recipe.slug %}" id="edit-button"
-                        class="btn btn-success btn-spacing w-25">Edit</a>
-                    <a href="{% url 'delete_recipe' recipe.slug %}" id="delete-button"
-                        class="btn btn-danger w-25">Delete</a>
+                        <a href="{% url 'update_recipe' recipe.slug %}" class="btn btn-success btn-spacing w-25">Edit</a>
+                        <a href="{% url 'delete_recipe' recipe.slug %}" class="btn btn-danger w-25">Delete</a>
                     {% endif %}
                 </div>
 
-                <!-- Like/Unlike Section -->
+                <!-- Like/Unlike -->
                 <div class="mb-3 d-flex align-items-center">
                     {% if user.is_authenticated %}
-                    <form method="POST" class="d-inline" action="{% url 'recipe_like' recipe.slug %}">
-                        {% csrf_token %}
-                        {% if request.user in recipe.likes.all %}
-                        <button class="like-icon liked" type="submit" aria-label="like the recipe">
-                            <strong><i class="fa-solid fa-heart"></i></strong>
-                        </button>
-                        {% else %}
-                        <button class="like-icon" type="submit" aria-label="unlike the recipe">
-                            <strong><i class="fa-regular fa-heart"></i></strong>
-                        </button>
-                        {% endif %}
-                    </form>
+                        <form method="POST" class="d-inline" action="{% url 'recipe_like' recipe.slug %}">
+                            {% csrf_token %}
+                            {% if request.user in recipe.likes.all %}
+                                <button class="like-icon liked" type="submit" aria-label="like the recipe">
+                                    <strong><i class="fa-solid fa-heart"></i></strong>
+                                </button>
+                            {% else %}
+                                <button class="like-icon" type="submit" aria-label="unlike the recipe">
+                                    <strong><i class="fa-regular fa-heart"></i></strong>
+                                </button>
+                            {% endif %}
+                        </form>
                     {% else %}
-                    <span class="like-icon">
-                        <strong><i class="fa-regular fa-heart"></i></strong>
-                    </span>
+                        <span class="like-icon"><strong><i class="fa-regular fa-heart"></i></strong></span>
                     {% endif %}
-                    <span class="spacer-font ml-2">
-                        <strong>{{ recipe.total_num_of_likes }}</strong>
-                    </span>
+                    &nbsp;
+                    <span class="ml-2"><strong>{{ recipe.total_num_of_likes }}</strong></span>
                     {% with comments.count as total_comments %}
-                    <span class="spacer spacer-font ml-2"><strong>
-                            <i class="fa-solid fa-comments"></i> {{ total_comments }}</strong>
-                    </span>
+                        &nbsp;
+                        <span class="ml-2"><strong><i class="fa-solid fa-comments"></i> {{ total_comments }}</strong></span>
                     {% endwith %}
                 </div>
             </div>
         </div>
     </div>
-    <hr>
-    <!-- Ingredients and Instructions Section -->
-    <div class="row mt-5">
-        <!-- Ingredients -->
-        <div class="col-md-6 ingredients-container">
-            <div class="mb-3">
-                <h2
-                    style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                    Ingredients:
-                </h2>
-                <p>
-                    {{ recipe.ingredients | safe }}
-                </p>
-            </div>
-        </div>
 
-        <!-- Instructions -->
-        <div class="col-md-6 instructions-container">
-            <div class="mb-3">
-                <h2
-                    style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                    Instructions:
-                </h2>
-                <p>
-                    {{ recipe.instructions | safe }}
-                </p>
-            </div>
+    <hr>
+
+    <!-- Ingredients and Instructions -->
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h2 class="mb-3" style="
+                font-family: 'Grenze Gotisch', serif; 
+                color: rgb(28, 196, 28); 
+                font-weight: 700; 
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+                Ingredients:
+            </h2>
+            <p>{{ recipe.ingredients|safe }}</p>
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-3" style="
+                font-family: 'Grenze Gotisch', serif; 
+                color: rgb(28, 196, 28); 
+                font-weight: 700; 
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+                Instructions:
+            </h2>
+            <p>{{ recipe.instructions|safe }}</p>
         </div>
     </div>
+
     <hr>
-    <!-- Displaying Comments -->
+
+    <!-- Comments Section -->
     <div class="row">
-        <!-- Comments Section -->
-        <div class="col-md-7 mb-4 mt-3 justify-content-center align-items-center">
-            <h3 class="font-weight-bold"
-                style="color: rgb(16, 212, 16); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                Comments:</h3>
-            <div>
-                {% for comment in comments %}
-                <div class="p-2 comments
-                  {% if not comment.approved and comment.author == user %}
-                  faded{% elif not comment.approved %} d-none{% endif %}">
-                    <p class="font-weight-bold">
-                        {{ comment.author }} ||
-                        <span class="font-weight-normal">
-                            {{ comment.created_on }}
-                        </span> wrote:
-                    </p>
-                    <div id="comment{{ comment.id }}">
-                        {{ comment.body | linebreaks }}
-                    </div>
-                    <hr>
+        <div class="col-md-7">
+            <h3 style="color: rgb(16, 212, 16); font-weight: 700;">Comments:</h3>
+            {% for comment in comments %}
+                <div class="p-2 {% if not comment.approved and comment.author == user %}faded{% elif not comment.approved %}d-none{% endif %}">
+                    <p><strong>{{ comment.author }}</strong> <span class="text-muted">| {{ comment.created_on }}</span>:</p>
+                    <div>{{ comment.body|linebreaks }}</div>
                     {% if not comment.approved and comment.author == user %}
-                    <p class="approval text-text-black">
-                        This comment is awaiting approval!
-                    </p>
+                        <p class="text-warning">This comment is awaiting approval!</p>
                     {% endif %}
+                    <hr>
                 </div>
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
-        <!-- Creating New Comments -->
-        <div class="col-md-5 mb-4 mt-3">
-            <div class="card-body">
-                {% if user.is_authenticated %}
-                <h3 class="font-weight-bold"
-                    style="color: rgb(17, 173, 17); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                    Leave a comment:</h3>
+        <div class="col-md-5">
+            {% if user.is_authenticated %}
+                <h3 style="color: rgb(17, 173, 17); font-weight: 700;">Leave a Comment:</h3>
                 <p>Posting as: {{ user.username }}</p>
-                <form id="commentForm" method="post" style="margin-top: 1.3em;">
-                    {{ comment_form | crispy }}
+                <form method="post">
+                    {{ comment_form|crispy }}
                     {% csrf_token %}
-                    <button id="submitButton" type="submit" class="btn btn-success text-white btn-lg"
-                        style="background-color: rgb(248, 151, 5);">Submit</button>
+                    <button type="submit" class="btn btn-success text-white btn-lg" style="background-color: rgb(248, 151, 5);">Submit</button>
                 </form>
-                {% else %}
-                <p>Log in to leave a comment</p>
-                {% endif %}
-            </div>
+            {% else %}
+                <p>Log in to leave a comment.</p>
+            {% endif %}
+            <br>
         </div>
     </div>
 </div>
-{% endblock content %}
+{% endblock %}

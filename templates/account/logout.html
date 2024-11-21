@@ -9,8 +9,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
             <!-- Styled Header -->
-            <h3
-                style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+            <h3 style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700; 
+                       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
                 {% trans "Sign Out" %}
             </h3>
 
@@ -23,10 +23,18 @@
             <form method="post" action="{% url 'account_logout' %}">
                 {% csrf_token %}
                 {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button class="btn btn-primary mt-4" type="submit"
-                    style="background-color: rgb(28, 196, 28); border-color: rgb(28, 196, 28); color: white; font-family: 'Libre Baskerville', serif; font-weight: 600; padding: 10px 20px; border-radius: 5px; transition: background-color 0.3s ease, border-color 0.3s ease;">
+                
+                <button class="btn btn-primary mt-4" type="submit" 
+                        style="background-color: rgb(28, 196, 28); 
+                               border-color: rgb(28, 196, 28); 
+                               color: white; 
+                               font-family: 'Libre Baskerville', serif; 
+                               font-weight: 600; 
+                               padding: 10px 20px; 
+                               border-radius: 5px; 
+                               transition: background-color 0.3s ease, border-color 0.3s ease;">
                     {% trans 'Sign Out' %}
                 </button>
             </form>

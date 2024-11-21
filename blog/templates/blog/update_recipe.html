@@ -1,23 +1,27 @@
 {% extends "base.html" %}
-{% block title %} Edit Recipe {% endblock %}
+
+{% block title %}Edit Recipe{% endblock %}
+
 {% load crispy_forms_tags %}
+
 {% block content %}
-<div class="container card mt-5 mb-5" style="max-width: 1000px;">
-    <!-- enctype is necessary to upload media files -->
-    <form method="POST" enctype="multipart/form-data" class="form p-4">
-        <h1 class="text-center mt-4 mb-4"
-            style="font-family: 'Grenze Gotisch', serif; color: rgb(17, 145, 17); font-weight: 500; font-size: 3rem;">
+<div class="container card mt-5 mb-5 shadow-lg" style="max-width: 900px; border-radius: 12px; background-color: #f6f866; font-weight: bold;">
+    <form method="POST" enctype="multipart/form-data" class="p-4">
+        <h1 class="text-center mb-4" style="font-family: 'Grenze Gotisch', serif; color: #119111; font-weight: bold; font-size: 2.5rem;">
             Edit Your Recipe
         </h1>
 
         {% csrf_token %}
         {{ form.media }}
 
-        <!-- Render form fields using crispy forms for better styling -->
-        {{ form | crispy }}
+        <div class="mb-4">
+            {{ form|crispy }}
+        </div>
 
         <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary">Update Recipe</button>
+            <button type="submit" class="btn btn-success btn-lg px-5" style="background-color: #ff9900;">
+                Update Recipe
+            </button>
         </div>
     </form>
 </div>

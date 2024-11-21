@@ -387,3 +387,14 @@ body {
 .spacer {
     margin-left: 10px;
 }
+
+.page-header {
+    font-family: 'Grenze Gotisch', serif;
+    color: #119111;
+    font-weight: bold;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+

@@ -10,12 +10,12 @@
                 <div class="with-shadow">
                     <h2 class="display-1">Welcome to Dish Dash!</h2>
                     <p class="lead">Where Every Meal is a Shared Adventure!</p>
-                    <p class="lead">At Dish Dash, we’re all about celebrating food and cooking together. Whether you’re
+                    <p class="lead">
+                        At Dish Dash, we’re all about celebrating food and cooking together. Whether you’re
                         a seasoned chef or a curious home cook, join us to share and discover amazing recipes, tweak
                         dishes to perfection, and connect with fellow food lovers.
                         Explore new ideas, enhance your favorite recipes, and find inspiration for every meal. Let’s
-                        make cooking fun and delicious—together!
-                        Dive in and start your culinary adventure with Dish Dash today!
+                        make cooking fun and delicious—together! Dive in and start your culinary adventure with Dish Dash today!
                     </p>
                 </div>
             </div>
@@ -37,11 +37,10 @@
                                 {% if "placeholder" in recipe.featured_image.url %}
                                 <img class="card-img-top" src="{% static 'images/food2.jpg' %}" alt="food image">
                                 {% else %}
-                                <img class="card-img-top" src=" {{ recipe.featured_image.url }}"
-                                    alt="{{ recipe.title }}">
+                                <img class="card-img-top" src="{{ recipe.featured_image.url }}" alt="{{ recipe.title }}">
                                 {% endif %}
                                 <div class="image-flash">
-                                    <p class="author">Posted by: {{ recipe.author }} | {{ recipe.created_on}}</p>
+                                    <p class="author">Posted by: {{ recipe.author }} | {{ recipe.created_on }}</p>
                                 </div>
                             </div>
                             <h2 class="card-title">{{ recipe.title }}</h2>
@@ -60,21 +59,24 @@
         </div>
     </div>
 
+    <!-- Pagination -->
     {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
-            <li>
-                <a href="?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous">&laquo;
-                    PREV</a>
+            <li class="page-item">
+                <a href="?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous">
+                    &laquo; PREV
+                </a>
             </li>
             {% endif %}
             {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            <li class="page-item">
+                <a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a>
+            </li>
             {% endif %}
         </ul>
     </nav>
     {% endif %}
 </div>
-
 {% endblock %}

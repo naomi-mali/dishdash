@@ -9,17 +9,15 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('body',)
+        labels = {
+            'body': 'Leave your comment here',
+        }
 
     def clean_body(self):
         body = self.cleaned_data.get('body')
         if not body:
             raise ValidationError('Comment body cannot be empty.')
         return body
-
-class Bootstrap4TextInput(forms.TextInput):
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault('attrs', {})['class'] = 'form-control'
-        super().__init__(*args, **kwargs)
 
 
 class RecipeForm(forms.ModelForm):
@@ -55,8 +53,9 @@ class RecipeForm(forms.ModelForm):
             'calories_fats': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter calories from fats'}),
             'ingredients': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'List ingredients here...'}),
             'instructions': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Provide cooking instructions here...'}),
-            'status': forms.RadioSelect(attrs={'class': 'form-check-input'})
+            'status': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
+
     def clean_title(self):
         title = self.cleaned_data.get('title')
         if not title:
@@ -75,19 +74,15 @@ class RecipeForm(forms.ModelForm):
             raise ValidationError('Instructions are required.')
         return instructions
 
-    def clean(self):
-        cleaned_data = super().clean()
-
-        # Ensure that if any of the required fields are empty, an error message is raised
-        title = cleaned_data.get('title')
-        ingredients = cleaned_data.get('ingredients')
-        instructions = cleaned_data.get('instructions')
-
-        if not title:
-            self.add_error('title', 'Recipe title cannot be empty.')
-        if not ingredients:
-            self.add_error('ingredients', 'Ingredients cannot be empty.')
-        if not instructions:
-            self.add_error('instructions', 'Instructions cannot be empty.')
-
-        return cleaned_data
+    def clean_featured_image(self):
+        """
+        Validate the featured_image field to ensure the uploaded file is of a valid image type.
+        """
+        image = self.cleaned_data.get('featured_image')
+        if image:
+            # Validate uploaded image MIME type
+            if hasattr(image, 'content_type'):
+                valid_content_types = ['image/jpeg', 'image/png', 'image/jpg']
+                if image.content_type not in valid_content_types:
+                    raise ValidationError("Only .jpg, .jpeg, and .png file types are supported.")
+        return image
