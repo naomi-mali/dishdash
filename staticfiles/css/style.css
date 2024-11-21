@@ -19,20 +19,22 @@ body {
     flex-direction: column;
 }
 
+
 /* Navbar */
 .navbar {
-    background: linear-gradient(to bottom, 
-        rgb(255, 196, 0) 0%, 
-        rgba(255, 251, 42, 0.8) 25%,
-        rgba(255, 255, 255, 0.5) 50%,
-        rgba(255, 251, 42, 0.8) 75%,
-        rgb(255, 196, 0) 100%);
+    background: linear-gradient(to bottom,
+            rgb(255, 196, 0) 0%,
+            rgba(255, 251, 42, 0.8) 25%,
+            rgba(255, 255, 255, 0.5) 50%,
+            rgba(255, 251, 42, 0.8) 75%,
+            rgb(255, 196, 0) 100%);
+    margin-bottom: 0;
 }
 
-.navbar .navbar-brand, 
+.navbar .navbar-brand,
 .navbar .nav-link {
     color: rgb(28, 196, 28);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -43,7 +45,7 @@ body {
 
 .navbar-brand .brand {
     font-family: 'Grenze Gotisch', serif;
-    font-weight: 700; 
+    font-weight: 700;
     font-size: 3rem;
     color: rgb(28, 196, 28);
 }
@@ -54,16 +56,17 @@ body {
 
 /* Footer */
 .footer {
-    background: linear-gradient(to bottom, 
-        rgb(255, 196, 0) 0%, 
-        rgba(255, 251, 42, 0.8) 25%,
-        rgba(255, 255, 255, 0.5) 50%,
-        rgba(255, 251, 42, 0.8) 75%,
-        rgb(255, 196, 0) 100%);
+    background: linear-gradient(to bottom,
+            rgb(255, 196, 0) 0%,
+            rgba(255, 251, 42, 0.8) 25%,
+            rgba(255, 255, 255, 0.5) 50%,
+            rgba(255, 251, 42, 0.8) 75%,
+            rgb(255, 196, 0) 100%);
     color: #228B22;
 }
 
-.footer a, .footer p {
+.footer a,
+.footer p {
     color: rgb(28, 196, 28);
     font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -72,21 +75,23 @@ body {
 /* Style for the image-background section */
 .image-background {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    background-image: url('/static/images/background-img.jpg');
+    padding-bottom: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
 }
 
 /* Style for headers within the image-background section */
 .image-background .display-1 {
-    font-family: 'Grenze Gotisch', serif; 
-    font-size: 3rem; 
-    color:rgb(28, 196, 28);
+    font-family: 'Grenze Gotisch', serif;
+    font-size: 2.5rem;
+    color: rgb(28, 196, 28);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     margin-bottom: 20px;
     font-weight: 500;
+    background-position: center top;
 }
 
 /* Style for paragraphs within the image-background section */
@@ -101,6 +106,15 @@ body {
 
 /* Style for index html*/
 
+.with-shadow {
+    background-color: rgba(253, 210, 116, 0.76);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    margin: 0 auto;
+}
+
 /* Style intro text */
 .card {
     border-radius: 10px;
@@ -109,11 +123,12 @@ body {
     margin-bottom: 20px;
 }
 
+
 /* Style for card images */
 .card .image-container {
     position: relative;
     overflow: hidden;
-    height: 200px;
+    height: 300px;
 }
 
 .card .image-flash {
@@ -135,7 +150,7 @@ body {
 /* Style for card title */
 .card-title {
     font-family: 'Grenze Gotisch', serif;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: rgb(6, 233, 6);
     margin-top: 10px;
     margin-bottom: 10px;
@@ -190,3 +205,393 @@ body {
     color: rgb(183, 247, 191);
     border-color: rgb(28, 196, 28);
 }
+
+/* Style for the sign-up page*/
+
+/* Style for the sign-up title */
+.signup-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(244, 250, 244);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #1eb82b;
+}
+
+/* Style for the introductory text */
+.intro-text {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.1rem;
+    color: #020202;
+    margin: 0;
+}
+
+/* Style for sign-in link */
+.signin-link {
+    color: rgb(28, 196, 28);
+    text-decoration: underline;
+}
+
+/* Style for the sign-up form container */
+.signup-container {
+    background-color: #f6f866;
+    border-radius: 0;
+    border: 3px solid darkorange;
+    box-shadow: 0 2px 4px rgba(247, 141, 2, 0.1);
+    margin-top: 0 !important;
+    border-top: none;
+}
+
+
+.bordered-section {
+    border: 3px solid darkorange;
+    /* Light gray border color */
+    padding: 10px;
+    /* Adjust padding as needed */
+    border-radius: 0;
+    /* Rounded corners */
+    background-color: #f6f866;
+    /* Light background color */
+    margin-bottom: 0 !important;
+
+}
+
+/* Style for form fields */
+.signup-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.signup-form .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.signup-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ff6803;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Style for the submit button */
+.btn-primary {
+    background-color: rgb(28, 196, 28);
+    border-color: rgb(28, 196, 28);
+    color: rgb(247, 247, 247);
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: rgb(14, 122, 14);
+    border-color: rgb(14, 122, 14);
+}
+
+/* Style for input text fields */
+.signup-container input[type="text"],
+.signup-container input[type="email"],
+.signup-container input[type="password"],
+.signup-container input[type="number"],
+.signup-container textarea {
+    background-color: #fff9c4;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Libre Baskerville', serif;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Add custom styles for form elements */
+.form-container {
+    background-color: #f6f866;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-container h1 {
+    color: #199614;
+    font-family: 'Grenze Gotisch', serif;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #f36506;
+    border-color: #830202;
+    color: #fffdfc;
+}
+
+.btn-center {
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-primary:hover {
+    background-color: #e22e0e;
+    border-color: #ff9900;
+
+}
+
+.form-control {
+    width: 100%;
+    /* Ensure full width of column */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    /* Add some margin below each form group */
+}
+
+/* Style for Like Button */
+.like-icon {
+    background: transparent;
+    border: none;
+    color: rgb(155, 155, 155);
+    font-size: 24px;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.like-icon.liked {
+    color: red;
+}
+
+.like-icon:hover {
+    color: rgb(255, 0, 0);
+}
+
+.spacer-font {
+    font-size: 18px;
+    color: #333;
+}
+
+.spacer {
+    margin-left: 10px;
+}
+
+.page-header {
+    font-family: 'Grenze Gotisch', serif;
+    color: #119111;
+    font-weight: bold;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.container {
+    margin-top: 1rem;
+}
+
+.card-img-top {
+    height: 400px;
+    padding-top: 25px;
+}
+
+.recipe-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(28, 196, 28);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.like-icon {
+    cursor: pointer;
+    color: rgb(28, 196, 28);
+}
+
+.like-icon.liked {
+    color: rgb(255, 0, 0);
+}
+
+.section-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(28, 196, 28);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.comment-header {
+    color: rgb(16, 212, 16);
+    font-weight: 700;
+}
+
+.comment-form-title {
+    color: rgb(17, 173, 17);
+    font-weight: 700;
+}
+
+.submit-button {
+    background-color: rgb(248, 151, 5);
+    color: white;
+}
+
+
+.buttons-container {
+    display: flex;
+    gap: 10px; /* Adds spacing between buttons */
+    align-items: center; /* Vertically aligns buttons in the same row */
+}
+
+.buttons-container .btn {
+    width: 25%; /* Adjust button width as needed */
+}
+
+
+/* Container for Introduction Section */
+.intro-container {
+    background-color: rgba(55, 221, 78, 0.548);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Heading style */
+.intro-heading {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(245, 250, 245);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Image Styles */
+.card-img-top {
+    height: 400px;
+    object-fit: cover;
+}
+
+/* Author Text Style */
+.image-flash .author {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* Recipe Title Style */
+.card-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(28, 196, 28);
+    font-weight: 700;
+}
+
+/* Card Text Style */
+.card-text {
+    color: #6c757d;
+    font-size: 1.125rem;
+}
+
+/* Button Styling */
+.btn-spacing {
+    margin-top: 10px;
+}
+
+.pagination {
+    justify-content: center;
+}
+
+/* Styling for Delete Recipe Confirmation Form */
+.delete-recipe-container {
+    max-width: 600px;
+    background-color: rgba(27, 170, 27, 0.623);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.delete-recipe-heading {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Add these styles to your style.css */
+
+/* Image container - set a height for the image */
+.card-img-top {
+    height: 400px;
+    object-fit: cover;
+}
+
+/* Title style */
+.card-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(28, 196, 28);
+    font-weight: 700;
+}
+
+/* Button spacing for the "Update Recipe" button */
+.btn-spacing {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Author and date text color */
+.author {
+    color: rgba(0, 0, 0, 0.5); /* Light grey for text */
+}
+
+/* Intro text spacing */
+.intro-heading {
+    margin-bottom: 30px;
+}
+
+.intro-container .lead {
+    margin-bottom: 20px;
+}
+
+/* Pagination center */
+.pagination {
+    justify-content: center;
+}
+
+/* Search title styling */
+.search-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: #119111;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+/* Image styles for recipes */
+.recipe-image {
+    height: 300px;
+    width: 350px;
+    padding: 15px;
+}
+
+/* Pagination center */
+.pagination-center {
+    text-align: center;
+}
+
+/* Pagination link active styling */
+.pagination .page-item.active .page-link {
+    background-color: #119111;
+    border-color: #119111;
+}
+
+/* Pagination link hover styling */
+.pagination .page-item .page-link:hover {
+    background-color: #119111;
+    border-color: #119111;
+}
+
+

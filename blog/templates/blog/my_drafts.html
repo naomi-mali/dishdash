@@ -4,14 +4,12 @@
 {% block title %} My Draft Recipes {% endblock %}
 {% block content %}
 
-<!-- Introduction Section with Semi-Transparent Background -->
+<!-- Rest of your content goes here -->
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-12 text-center">
-            <div class="p-4" 
-                 style="background-color: rgba(55, 221, 78, 0.548); border-radius: 0.5rem; border: 1px solid rgba(0, 0, 0, 0.1); max-width: 700px; margin: 0 auto;">
-                <h1 class="display-4 mb-4" 
-                    style="font-family: 'Grenze Gotisch', serif; color: rgb(245, 250, 245); font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+            <div class="p-4 intro-container">
+                <h1 class="display-4 mb-4 intro-heading">
                     My Draft Recipes
                 </h1>
                 <p class="lead mb-4">Hi, <strong>{{ request.user }}</strong>! Your draft recipes are saved here.</p>
@@ -41,21 +39,18 @@
                     {% if "placeholder" in recipe.featured_image.url %}
                     <img class="card-img-top" 
                          src="{% static 'images/food2.jpg' %}" 
-                         alt="food image" 
-                         style="height: 400px; object-fit: cover;">
+                         alt="food image">
                     {% else %}
                     <img class="card-img-top" 
                          src="{{ recipe.featured_image.url }}" 
-                         alt="{{ recipe.title }}" 
-                         style="height: 400px; object-fit: cover;">
+                         alt="{{ recipe.title }}">
                     {% endif %}
                     <div class="image-flash">
                         <p class="author text-muted mb-2">Posted by: {{ recipe.author }} | {{ recipe.created_on }}</p>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h2 class="card-title h4" 
-                        style="font-family: 'Grenze Gotisch', serif; color: rgb(28, 196, 28); font-weight: 700;">
+                    <h2 class="card-title h4">
                         {{ recipe.title }}
                     </h2>
                     <p class="card-text text-muted h6">{{ recipe.created_on }}</p>

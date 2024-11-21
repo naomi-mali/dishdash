@@ -397,4 +397,201 @@ body {
     margin-bottom: 1.5rem;
 }
 
+.container {
+    margin-top: 1rem;
+}
+
+.card-img-top {
+    height: 400px;
+    padding-top: 25px;
+}
+
+.recipe-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(28, 196, 28);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.like-icon {
+    cursor: pointer;
+    color: rgb(28, 196, 28);
+}
+
+.like-icon.liked {
+    color: rgb(255, 0, 0);
+}
+
+.section-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(28, 196, 28);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.comment-header {
+    color: rgb(16, 212, 16);
+    font-weight: 700;
+}
+
+.comment-form-title {
+    color: rgb(17, 173, 17);
+    font-weight: 700;
+}
+
+.submit-button {
+    background-color: rgb(248, 151, 5);
+    color: white;
+}
+
+
+.buttons-container {
+    display: flex;
+    gap: 10px; /* Adds spacing between buttons */
+    align-items: center; /* Vertically aligns buttons in the same row */
+}
+
+.buttons-container .btn {
+    width: 25%; /* Adjust button width as needed */
+}
+
+
+/* Container for Introduction Section */
+.intro-container {
+    background-color: rgba(55, 221, 78, 0.548);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Heading style */
+.intro-heading {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(245, 250, 245);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Image Styles */
+.card-img-top {
+    height: 400px;
+    object-fit: cover;
+}
+
+/* Author Text Style */
+.image-flash .author {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* Recipe Title Style */
+.card-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(28, 196, 28);
+    font-weight: 700;
+}
+
+/* Card Text Style */
+.card-text {
+    color: #6c757d;
+    font-size: 1.125rem;
+}
+
+/* Button Styling */
+.btn-spacing {
+    margin-top: 10px;
+}
+
+.pagination {
+    justify-content: center;
+}
+
+/* Styling for Delete Recipe Confirmation Form */
+.delete-recipe-container {
+    max-width: 600px;
+    background-color: rgba(27, 170, 27, 0.623);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.delete-recipe-heading {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Add these styles to your style.css */
+
+/* Image container - set a height for the image */
+.card-img-top {
+    height: 400px;
+    object-fit: cover;
+}
+
+/* Title style */
+.card-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: rgb(28, 196, 28);
+    font-weight: 700;
+}
+
+/* Button spacing for the "Update Recipe" button */
+.btn-spacing {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Author and date text color */
+.author {
+    color: rgba(0, 0, 0, 0.5); /* Light grey for text */
+}
+
+/* Intro text spacing */
+.intro-heading {
+    margin-bottom: 30px;
+}
+
+.intro-container .lead {
+    margin-bottom: 20px;
+}
+
+/* Pagination center */
+.pagination {
+    justify-content: center;
+}
+
+/* Search title styling */
+.search-title {
+    font-family: 'Grenze Gotisch', serif;
+    color: #119111;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+/* Image styles for recipes */
+.recipe-image {
+    height: 300px;
+    width: 350px;
+    padding: 15px;
+}
+
+/* Pagination center */
+.pagination-center {
+    text-align: center;
+}
+
+/* Pagination link active styling */
+.pagination .page-item.active .page-link {
+    background-color: #119111;
+    border-color: #119111;
+}
+
+/* Pagination link hover styling */
+.pagination .page-item .page-link:hover {
+    background-color: #119111;
+    border-color: #119111;
+}
+
 

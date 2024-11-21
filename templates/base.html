@@ -39,10 +39,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
 
-    <!-- Link to custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <title>Dish Dash</title>
+    <!-- Custom CSS link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">   
+    <title> {% block title %} Dish Dash {% endblock %} </title> 
 </head>
 
 <body class="d-flex flex-column h-100">
