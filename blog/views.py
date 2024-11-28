@@ -8,8 +8,10 @@ from django.db.models import Q
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
-from django.http import HttpResponseRedirect
-from django.core.exceptions import ValidationError
+from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
+from django.utils.text import slugify
+from django.contrib.auth.decorators import login_required
+
 
 
 # --- Recipe List View ---
@@ -18,7 +20,7 @@ class RecipeList(generic.ListView):
     Displays a list of published recipes.
     Paginated to show 9 recipes per page.
     """
-    queryset = Recipe.objects.filter(status=1)
+    queryset = Recipe.objects.filter(status=1).order_by('-created_on')
     template_name = "blog/index.html"
     paginate_by = 9
 
@@ -34,9 +36,8 @@ def post_detail(request, slug):
     except Recipe.DoesNotExist:
         raise Http404("Recipe not found")
 
-    # Ensure the recipe is visible if it's published or the user is the author/admin
-    if recipe.status == 0 and (not request.user.is_staff and request.user != recipe.author):
-        raise Http404("Recipe is in draft status and cannot be viewed by this user.")
+    if recipe.status == 0 and not (request.user.is_staff or request.user == recipe.author):
+        return HttpResponseForbidden("You do not have permission to view this recipe.")
 
     comments = recipe.comments.all().order_by("-created_on")
     comment_count = recipe.comments.filter(approved=True).count()
@@ -48,11 +49,9 @@ def post_detail(request, slug):
             comment.author = request.user
             comment.recipe = recipe
             comment.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 'Your comment was submitted and is awaiting approval from admin')
+            messages.success(request, 'Your comment was submitted and is awaiting approval.')
         else:
-            messages.add_message(request, messages.ERROR,
-                                 'There was an issue submitting your comment.')
+            messages.error(request, 'There was an issue submitting your comment.')
 
     comment_form = CommentForm()
 
@@ -81,17 +80,13 @@ class RecipeSearchList(ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        queryset = super().get_queryset()
         query = self.request.GET.get('q', '')
         if query:
-            queryset = queryset.filter(
-                Q(title__icontains=query) |
-                Q(ingredients__icontains=query),
+            return Recipe.objects.filter(
+                Q(title__icontains=query) | Q(ingredients__icontains=query),
                 status=1
             ).order_by('-created_on')
-        else:
-            queryset = Recipe.objects.none()
-        return queryset
+        return Recipe.objects.none()
 
 
 # --- Add Recipe View ---
@@ -106,14 +101,19 @@ class AddRecipe(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        # Ensure the title is not empty
-        if not form.cleaned_data['title']:
-            raise ValidationError('Title is required.')
-
         form.instance.author = self.request.user
-        success_message = "Your recipe has been posted successfully."
-        messages.add_message(self.request, messages.SUCCESS, success_message)
+        form.instance.slug = self.generate_unique_slug(form.cleaned_data['title'])
+        messages.success(self.request, "Your recipe has been posted successfully.")
         return super().form_valid(form)
+
+    def generate_unique_slug(self, title):
+        base_slug = slugify(title)
+        slug = base_slug
+        counter = 1
+        while Recipe.objects.filter(slug=slug).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+        return slug
 
 
 # --- Update Recipe View ---
@@ -128,27 +128,26 @@ class UpdateRecipe(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = "blog/update_recipe.html"
 
     def get_success_url(self):
-        # Redirect to the home page after successful update
         return reverse_lazy('home')
 
     def test_func(self):
         return self.request.user == self.get_object().author
 
     def form_valid(self, form):
-        # Ensure the title is not empty
-        if not form.cleaned_data['title']:
-            raise ValidationError('Title cannot be empty.')
-        
-        # Ensure the slug is unique
-        slug = form.cleaned_data.get('slug')
-        if slug:
-            if Recipe.objects.filter(slug=slug).exclude(pk=self.object.pk).exists():
-                form.cleaned_data['slug'] = f"{slug}-{self.object.pk}"
-
         form.instance.author = self.request.user
-        success_message = "Your recipe has been updated successfully."
-        messages.success(self.request, success_message)
+        slug = form.cleaned_data['slug']
+        if Recipe.objects.filter(slug=slug).exclude(pk=self.object.pk).exists():
+            form.cleaned_data['slug'] = self.generate_unique_slug(slug)
+        messages.success(self.request, "Your recipe has been updated successfully.")
         return super().form_valid(form)
+
+    def generate_unique_slug(self, base_slug):
+        slug = base_slug
+        counter = 1
+        while Recipe.objects.filter(slug=slug).exclude(pk=self.object.pk).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+        return slug
 
 
 # --- Delete Recipe View ---
@@ -164,14 +163,13 @@ class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         return self.request.user == self.get_object().author
 
-    def form_valid(self, request, *args, **kwargs):
-        success_message = "Your recipe has been deleted successfully."
-        messages.add_message(self.request, messages.SUCCESS, success_message)
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Your recipe has been deleted successfully.")
         return super().delete(request, *args, **kwargs)
 
 
 # --- User's Draft Recipes View ---
-class UserDrafts(ListView):
+class UserDrafts(LoginRequiredMixin, ListView):
     """
     Displays a list of draft recipes created by the logged-in user.
     Only shows drafts with status 'draft' (0).
@@ -182,12 +180,11 @@ class UserDrafts(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        # Filter for drafts (status=0) and order by creation date
         return Recipe.objects.filter(author=self.request.user, status=0).order_by('-created_on')
 
 
 # --- Recipe Like/Unlike View ---
-class RecipeLike(View):
+class RecipeLike(LoginRequiredMixin, View):
     """
     Allows logged-in users to like/unlike a recipe.
     Toggles the like status.
@@ -195,10 +192,11 @@ class RecipeLike(View):
     def post(self, request, slug):
         recipe = get_object_or_404(Recipe, slug=slug)
 
-        if request.user.is_authenticated:
-            if recipe.likes.filter(id=request.user.id).exists():
-                recipe.likes.remove(request.user)
-            else:
-                recipe.likes.add(request.user)
+        if recipe.likes.filter(id=request.user.id).exists():
+            recipe.likes.remove(request.user)
+            messages.success(request, "You have unliked this recipe.")
+        else:
+            recipe.likes.add(request.user)
+            messages.success(request, "You have liked this recipe.")
 
         return redirect(reverse('recipe_detail', args=[slug]))
