@@ -761,6 +761,119 @@ CLOUDINARY_STORAGE = {
 
 Status: Resolved. Cloudinary is now fully functional in the application.
 
+
+
+## Bug: HTML Sanitization for Ingredients and Instructions Fields
+
+### Issue
+
+- **Problem:**  
+  Users may input HTML content like `<ul>`, `<ol>`, `<li>` for structured lists or styling elements like `<b>` or `<i>` in the **Ingredients** and **Instructions** fields.  
+  Without sanitization:
+  - **Security Risks**: Potential for malicious HTML or JavaScript injection.
+  - **Rendering Issues**: Invalid or unsafe HTML could cause display problems on the frontend.
+
+- **Requirement:**  
+  Allow specific HTML tags (e.g., lists, basic text formatting) while sanitizing other unsafe or unnecessary tags.
+
+---
+
+### Solution: HTML Sanitization Using `bleach`
+
+We used the **`bleach` library** to sanitize HTML input, ensuring only safe and necessary tags are preserved.
+
+---
+
+### Steps to Fix
+
+#### 1. Install the `bleach` Library
+
+Install the `bleach` library to handle sanitization.
+
+Run the following command in your terminal:
+```bash
+pip install bleach
+```
+
+---
+
+#### 2. Update the Recipe Model
+
+Sanitize the `ingredients` and `instructions` fields using custom cleaning methods in the **Recipe model**.
+
+**Updated Code:**
+```python
+import bleach
+
+class Recipe(models.Model):
+    title = models.CharField(max_length=200)
+    ingredients = models.TextField()
+    instructions = models.TextField()
+
+    # Clean the ingredients field
+    def clean_ingredients(self):
+        allowed_tags = ['ul', 'ol', 'li', 'b', 'i', 'p', 'br']
+        return bleach.clean(self.ingredients, tags=allowed_tags)
+
+    # Clean the instructions field
+    def clean_instructions(self):
+        allowed_tags = ['ul', 'ol', 'li', 'b', 'i', 'p', 'br']
+        return bleach.clean(self.instructions, tags=allowed_tags)
+
+    # Apply sanitization during save
+    def save(self, *args, **kwargs):
+        self.ingredients = self.clean_ingredients()
+        self.instructions = self.clean_instructions()
+        super().save(*args, **kwargs)
+```
+
+**Explanation:**
+- **`bleach.clean()`**:
+  - Sanitizes the input, removing all tags except those specified in `allowed_tags`.
+- **Allowed Tags**:
+  - Supports list formatting (`<ul>`, `<ol>`, `<li>`), basic text styling (`<b>`, `<i>`), and paragraph breaks (`<p>`, `<br>`).
+- **Sanitization in Save**:
+  - Ensures sanitization is applied whenever the model instance is saved.
+
+---
+
+#### 3. Update the Template for Rendering
+
+To properly display sanitized HTML content on the frontend, update the template to use the `|safe` filter.
+
+**Template Code:**
+```html
+<div class="ingredients">
+    {{ recipe.ingredients|safe }}
+</div>
+
+<div class="instructions">
+    {{ recipe.instructions|safe }}
+</div>
+```
+
+**Explanation:**
+- The `|safe` filter allows Django to render the sanitized HTML content without escaping it.
+
+---
+
+### Benefits of This Fix
+
+1. **Security**: Prevents harmful scripts or HTML from being stored or displayed.
+2. **Improved UX**: Allows users to input and view structured, formatted content safely.
+3. **Consistency**: Ensures only valid and safe HTML tags are rendered.
+
+---
+
+### Summary of Changes
+
+1. Installed `bleach` to sanitize HTML input for specific fields.
+2. Added `clean_ingredients()` and `clean_instructions()` methods in the **Recipe model**.
+3. Overrode the `save()` method to integrate sanitization during database saving.
+4. Updated the template to use the `|safe` filter for rendering sanitized content.
+
+These changes ensure the **Ingredients** and **Instructions** fields are secure, clean, and properly formatted for rendering on the frontend.
+
 ### Recipe Search Page Not Loading
 
 The recipe search functionality was not working correctly. When I attempted to search for recipes, the application failed  resulting in error.

@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}Edit Recipe{% endblock %}
-
-{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container card mt-5 mb-5 shadow-lg" style="max-width: 900px; border-radius: 12px; background-color: #f6f866; font-weight: bold;">
@@ -16,10 +15,12 @@
         {{ form.media }}
 
         <div class="mb-4">
+            <!-- Render the form using crispy-forms for better styling -->
             {{ form|crispy }}
         </div>
 
         <div class="text-center mt-4">
+            <!-- Update button with custom styling -->
             <button type="submit" class="btn btn-success btn-lg px-5" style="background-color: #ff9900;">
                 Update Recipe
             </button>
