@@ -15,3 +15,4 @@ urlpatterns = [
     path('my_drafts/', views.UserDrafts.as_view(), name='my_drafts'),
  
 ]
+

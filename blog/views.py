@@ -24,20 +24,13 @@ class RecipeList(generic.ListView):
     template_name = "blog/index.html"
     paginate_by = 9
 
-
 # --- Recipe Detail View ---
 def post_detail(request, slug):
     """
     Displays the details of a recipe.
     Allows comments to be submitted (pending approval).
     """
-    try:
-        recipe = Recipe.objects.get(slug=slug)
-    except Recipe.DoesNotExist:
-        raise Http404("Recipe not found")
-
-    if recipe.status == 0 and not (request.user.is_staff or request.user == recipe.author):
-        return HttpResponseForbidden("You do not have permission to view this recipe.")
+    recipe = get_object_or_404(Recipe, slug=slug)
 
     comments = recipe.comments.all().order_by("-created_on")
     comment_count = recipe.comments.filter(approved=True).count()
@@ -66,7 +59,6 @@ def post_detail(request, slug):
         },
     )
 
-
 # --- Recipe Search View ---
 class RecipeSearchList(ListView):
     """
@@ -87,7 +79,6 @@ class RecipeSearchList(ListView):
                 status=1
             ).order_by('-created_on')
         return Recipe.objects.none()
-
 
 # --- Add Recipe View ---
 class AddRecipe(LoginRequiredMixin, CreateView):
@@ -114,7 +105,6 @@ class AddRecipe(LoginRequiredMixin, CreateView):
             slug = f"{base_slug}-{counter}"
             counter += 1
         return slug
-
 
 # --- Update Recipe View ---
 class UpdateRecipe(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -149,7 +139,6 @@ class UpdateRecipe(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             counter += 1
         return slug
 
-
 # --- Delete Recipe View ---
 class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
@@ -167,7 +156,6 @@ class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         messages.success(self.request, "Your recipe has been deleted successfully.")
         return super().delete(request, *args, **kwargs)
 
-
 # --- User's Draft Recipes View ---
 class UserDrafts(LoginRequiredMixin, ListView):
     """
@@ -181,7 +169,6 @@ class UserDrafts(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Recipe.objects.filter(author=self.request.user, status=0).order_by('-created_on')
-
 
 # --- Recipe Like/Unlike View ---
 class RecipeLike(LoginRequiredMixin, View):
