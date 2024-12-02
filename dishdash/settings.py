@@ -34,7 +34,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "8000-naomimali-dishdash-h27thl75mh2.ws.codeinstitute-ide.net",
-    ".herokuapp.com",
+    '.herokuapp.com',
 ]
 
 
