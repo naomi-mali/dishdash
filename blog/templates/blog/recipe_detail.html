@@ -29,12 +29,13 @@
                     <p><strong><i class="fa-solid fa-clock like-icon"></i> Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
                     <p><strong><i class="fa-solid fa-bowl-food like-icon"></i> Servings:</strong> {{ recipe.servings }}</p>
 
-                    {% if user.id == recipe.author.id %}
-                        <div class="buttons-container">
-                            <a href="{% url 'update_recipe' recipe.slug %}" class="btn btn-success w-25">Edit</a>
-                            <a href="{% url 'delete_recipe' recipe.slug %}" class="btn btn-danger w-25">Delete</a>
-                        </div>
+                    {% if user.id == recipe.author.id %} 
+                    <div class="buttons-container" style="display: flex; gap: 10px; justify-content: flex-start; align-items: center;">
+                        <a href="{% url 'update_recipe' recipe.slug %}" class="btn btn-success" style="padding: 10px 20px; text-decoration: none; border-radius: 5px; background-color: #28a745; color: white;">Edit</a>
+                        <a href="{% url 'delete_recipe' recipe.slug %}" class="btn btn-danger" style="padding: 10px 20px; text-decoration: none; border-radius: 5px; background-color: #dc3545; color: white;">Delete</a>
+                    </div>
                     {% endif %}
+                    
                 </div>
 
                 <!-- Like/Unlike -->
