@@ -1,7 +1,10 @@
-import bleach
 from django import forms
 from django.core.exceptions import ValidationError
+
+import bleach
+
 from .models import Comment, Recipe
+
 
 
 class CommentForm(forms.ModelForm):

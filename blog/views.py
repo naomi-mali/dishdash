@@ -1,17 +1,17 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.contrib import messages
-from .models import Recipe
-from .forms import CommentForm, RecipeForm
-from django.views.generic import ListView
-from django.db.models import Q
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
+from django.db.models import Q
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+from .models import Recipe, Comment
+from .forms import CommentForm, RecipeForm
 
 
 # --- Recipe List View ---
@@ -58,6 +58,55 @@ def post_detail(request, slug):
             "comment_form": comment_form,
         },
     )
+
+def comment_edit(request, slug, comment_id):
+    """
+    View to edit comments on a recipe.
+    """
+    if request.method == "POST":
+
+        # Get the recipe object
+        recipe = get_object_or_404(Recipe, slug=slug)
+
+        # Get the comment object
+        comment = get_object_or_404(recipe.comments, pk=comment_id)
+
+        # Bind the form with the existing comment data
+        comment_form = CommentForm(data=request.POST, instance=comment)
+
+        # Validate the form and ensure the user is the author
+        if comment_form.is_valid() and comment.author == request.user:
+            comment = comment_form.save(commit=False)
+            comment.recipe = recipe
+            comment.approved = False  # set to pending approval
+            comment.save()
+            messages.success(request, 'Comment Updated!')
+        else:
+            messages.error(request, 'Error updating comment!')
+
+    return HttpResponseRedirect(reverse('recipe_detail', args=[slug]))
+
+def comment_delete(request, slug, comment_id):
+    """
+    View to delete a comment on a recipe.
+    """
+    # Get the recipe object
+    recipe = get_object_or_404(Recipe, slug=slug)
+
+    # Get the comment object
+    comment = get_object_or_404(recipe.comments, pk=comment_id)
+
+    # Check if the comment's author matches the logged-in user
+    if comment.author == request.user:
+        comment.delete()
+        messages.success(request, 'Comment deleted!')
+    else:
+        messages.error(request, 'You can only delete your own comments!')
+
+    # Redirect to the recipe detail page
+    return HttpResponseRedirect(reverse('recipe_detail', args=[slug]))
+
+
 
 # --- Recipe Search View ---
 class RecipeSearchList(ListView):
