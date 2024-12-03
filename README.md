@@ -205,6 +205,7 @@ As a Admin I can Create and manage an add recipes page for users so that Enable 
 ![Screenshot 2024-08-14 182411](https://github.com/user-attachments/assets/ac1b9c43-47a6-4636-a54f-e76189a24fe4)
 
 ## CRUD Functionality 
+### For recipes 
  The Add Recipe page link is only visible and accessible to logged-in users. On clicking the Add Recipe link, authorised users are directed to the create recipe form. The form field marked as * are mandatory to be filled. If user tries to submit the form without entering all required field, messages are displayed below relevant fields that are left empty.
 A default image is incorporated so that if the user is unable to provide any recipe image, the default image will act as one.
 All the fields in the form except the Recipe Image field are required. The form is not deemed to be valid in case any of the fields are left empty. User can either publish or save recipe as draft.
@@ -237,6 +238,41 @@ CRUD Functionality - the feature of delete in recipe details page is only visibl
 User is directed to confirm delete page where user can either delete the recipe or cancel.
 The recipe is permanently deleted if delete is confirmed and a success message is diplayed to user else user will be taken back to recipe details page if cancelled.
 If anauthorised user accesses the link the 403 error page will be displayed.
+
+### For comments
+
+### Comments CRUD Functionality  
+
+The application provides a complete Comments CRUD (Create, Read, Update, Delete) functionality, enabling users to manage comments effectively. Below is a detailed breakdown:  
+
+#### 1. **Create**  
+- Logged-in users can add new comments to posts.  
+- A comment form is provided under each post for easy interaction.  
+- Once submitted, the comment is displayed immediately in the post's comment section.  
+
+#### 2. **Read**  
+- All users can view comments associated with a post.  
+- Comments are displayed in chronological order, enhancing readability and context.  
+- Each comment includes information such as the author's username and the time it was posted.  
+
+#### 3. **Update**  
+- Logged-in users can edit their own comments to correct or update information.  
+- An "Edit" option is available next to each comment for authorized users.  
+- Edited comments are updated instantly, reflecting changes in the comment section.  
+
+#### 4. **Delete**  
+- Logged-in users can delete their own comments if they no longer want them displayed.  
+- A "Delete" option is available next to each comment for authorized users.  
+- Deleted comments are permanently removed from the comment section, ensuring a clean interface.  
+
+
+![comments](https://github.com/user-attachments/assets/8bf3b3b0-39e5-4e7e-a606-7113a7a2f0e3)
+![comments1](https://github.com/user-attachments/assets/f59b0e9a-441c-4f32-805c-95518c796b4f)
+![comments2](https://github.com/user-attachments/assets/a68fd1c9-3206-46f0-a73f-bedabaa1ddec)
+![edit](https://github.com/user-attachments/assets/9e7571c4-265a-4432-b4bc-414bfd0470a8)
+![edit2](https://github.com/user-attachments/assets/0579524b-474b-4503-84c3-176b529c524c)
+
+
 
 ### Recipe Details
 
@@ -328,6 +364,27 @@ If the user is not logged-in, user will only be displayed with the comments made
 Authorised users are displayed with the comment box to comment on the recipe, upon comment submission a success message is displayed with a comment awaiting approval information.
 The comments from other users on the recipe and total number of comments on the recipe is visible to all users regardless of their login status.
 If recipe has no comments, then a short messsage 'No comments yet' will be displayed.
+You can add the following description to your `README.md` to explain that comments can be deleted and edited, as well as the CRUD functionality:
+
+---
+
+### Comment Management
+
+The application allows users to manage comments with full CRUD (Create, Read, Update, Delete) functionality. 
+
+- **Create**: Users can add new comments to posts.
+- **Read**: Users can view existing comments on posts.
+- **Update**: Users can edit their own comments.
+- **Delete**: Users can delete their own comments.
+
+
+![comments](https://github.com/user-attachments/assets/8bf3b3b0-39e5-4e7e-a606-7113a7a2f0e3)
+![comments1](https://github.com/user-attachments/assets/f59b0e9a-441c-4f32-805c-95518c796b4f)
+![comments2](https://github.com/user-attachments/assets/a68fd1c9-3206-46f0-a73f-bedabaa1ddec)
+![edit](https://github.com/user-attachments/assets/9e7571c4-265a-4432-b4bc-414bfd0470a8)
+![edit2](https://github.com/user-attachments/assets/0579524b-474b-4503-84c3-176b529c524c)
+
+
 
 ### Like / Unlike Recipes
 
@@ -515,6 +572,8 @@ Combining [Grenze Gotisch](https://fonts.google.com/specimen/Grenze+Gotisch) and
 
 - cloudinary: Provides Cloudinary support for managing media files within Django, including uploading, transforming, and serving images and videos.
 
+-bleach: Provides a whitelist-based HTML sanitizing library for cleaning and filtering user-generated content. It helps to prevent XSS attacks by ensuring only safe and allowed tags, attributes, and styles are retained in user input.
+
 ## Testing 
 
 ### Responsiveness
@@ -559,43 +618,49 @@ The following browsers have been used to check responsiveness.
 
 ### Home Page 
 
-![Screenshot 2024-08-14 232939](https://github.com/user-attachments/assets/0db5fc2d-afc7-47ec-bdd3-ea18dd8c76d1)
+![test1](https://github.com/user-attachments/assets/7706ef23-7fae-414e-abab-fc9d958b035f)
+
 
 ### Recipes Details
 
-![Screenshot 2024-08-14 233325](https://github.com/user-attachments/assets/041cbec8-ee45-49c3-9b0c-0dd273fe0e2b)
+![test668](https://github.com/user-attachments/assets/b82aa054-fd1f-4dc4-94c5-c88c22c6dba1)
 
 ### Search Recipes Page
 
-![Screenshot 2024-08-14 233430](https://github.com/user-attachments/assets/9635f4df-9334-4caf-8b71-82d8efaebf8e)
+![test2](https://github.com/user-attachments/assets/8c13b601-9d16-4d40-8d77-01c52f4293de)
 
 ### Sign Up Page
 
-![Screenshot 2024-08-14 233528](https://github.com/user-attachments/assets/dbc1a57f-afe5-48a1-8cb5-e5738ce1b1ac)
+![test3](https://github.com/user-attachments/assets/ba9c7fb4-5080-43be-ba4c-7607a95b120a)
 
 ### Sign In Page 
 
-![Screenshot 2024-08-14 233735](https://github.com/user-attachments/assets/5573e657-d05a-491b-8b4a-848ac8f71080)
+![test4](https://github.com/user-attachments/assets/a5fc724f-47a9-487d-92e4-33bd980a5f8d)
 
 ### Log Out Page
 
-![Screenshot 2024-08-14 233900](https://github.com/user-attachments/assets/a5d18fed-7fcb-4cb2-88ab-3a9331a45685)
+![test77](https://github.com/user-attachments/assets/06ed7976-337b-4c1e-a8b3-fed5f99fec39)
 
 ### Add Recipe Page
 
-![Screenshot 2024-08-14 233951](https://github.com/user-attachments/assets/2376a302-4fe2-4a1f-a8a9-ef38cc438e70)
+![test5](https://github.com/user-attachments/assets/6144782b-493b-4869-850e-eb4a8589c4f9)
 
 ### Edit Recipe Page
 
-![Screenshot 2024-08-14 234153](https://github.com/user-attachments/assets/d888cf8d-0829-4726-8e75-53fe357b7ab8)
+![test6](https://github.com/user-attachments/assets/feaf1421-00c2-4ecd-a3e1-c1af3e37cbba)
 
 ### Delete Recipe Page
 
-![Screenshot 2024-08-14 234319](https://github.com/user-attachments/assets/ef67136b-d5f8-4066-a01c-b3f98100b91c)
+
+![test 7](https://github.com/user-attachments/assets/e53df3c7-9953-4de9-930a-680a0974ad64)
 
 ### My Drafts Page
 
-![Screenshot 2024-08-14 234035](https://github.com/user-attachments/assets/6e39756d-7152-4551-bc18-20a51540e4a3)
+![Screenshot 2024-12-03 201935](https://github.com/user-attachments/assets/b9f64b53-0ebf-4556-809d-312d801bb4ff)
+
+### Delete comment 
+ 
+ ![Screenshot 2024-12-03 202230](https://github.com/user-attachments/assets/d2150949-95eb-4697-9af2-9e8c98331b72)
 
 
 ## Validator Testing

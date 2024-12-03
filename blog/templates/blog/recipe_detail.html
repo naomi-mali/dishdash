@@ -29,13 +29,12 @@
                     <p><strong><i class="fa-solid fa-clock like-icon"></i> Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
                     <p><strong><i class="fa-solid fa-bowl-food like-icon"></i> Servings:</strong> {{ recipe.servings }}</p>
 
-                    {% if user.id == recipe.author.id %} 
+                    {% if user.id == recipe.author.id %}
                     <div class="buttons-container" style="display: flex; gap: 10px; justify-content: flex-start; align-items: center;">
                         <a href="{% url 'update_recipe' recipe.slug %}" class="btn btn-success" style="padding: 10px 20px; text-decoration: none; border-radius: 5px; background-color: #28a745; color: white;">Edit</a>
                         <a href="{% url 'delete_recipe' recipe.slug %}" class="btn btn-danger" style="padding: 10px 20px; text-decoration: none; border-radius: 5px; background-color: #dc3545; color: white;">Delete</a>
                     </div>
                     {% endif %}
-                    
                 </div>
 
                 <!-- Like/Unlike -->
@@ -84,59 +83,59 @@
     <hr>
 
     <!-- Comments Section -->
-<div class="row">
-    <div class="col-md-7">
-        <h3 class="comment-header">Comments:</h3>
-        {% for comment in comments %}
-            <div class="p-2 {% if not comment.approved and comment.author == user %}faded{% elif not comment.approved %}d-none{% endif %}">
-                <p><strong>{{ comment.author }}</strong> <span class="text-muted">| {{ comment.created_on }}</span>:</p>
-                <div id="comment{{ comment.id }}">{{ comment.body | linebreaks }}</div>
-                {% if not comment.approved and comment.author == user %}
-                    <p class="text-warning">This comment is awaiting approval!</p>
-                {% endif %}
-                {% if user.is_authenticated and comment.author == user %}
-                <button class="btn btn-delete" data-comment_id="{{ comment.id }}">Delete</button>
-                <button class="btn btn-edit" data-comment_id="{{ comment.id }}">Edit</button>
-                {% endif %}
-                <hr>
-            </div>
-        {% endfor %}
+    <div class="row">
+        <div class="col-md-7">
+            <h3 class="comment-header">Comments:</h3>
+            {% for comment in comments %}
+                <div class="p-2 {% if not comment.approved and comment.author == user %}faded{% elif not comment.approved %}d-none{% endif %}">
+                    <p><strong>{{ comment.author }}</strong> <span class="text-muted">| {{ comment.created_on }}</span>:</p>
+                    <div id="comment{{ comment.id }}">{{ comment.body | linebreaks }}</div>
+                    {% if not comment.approved and comment.author == user %}
+                        <p class="text-warning">This comment is awaiting approval!</p>
+                    {% endif %}
+                    {% if user.is_authenticated and comment.author == user %}
+                    <button class="btn btn-delete" data-comment_id="{{ comment.id }}">Delete</button>
+                    <button class="btn btn-edit" data-comment_id="{{ comment.id }}">Edit</button>
+                    {% endif %}
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-5">
+            {% if user.is_authenticated %}
+                <h3 class="comment-form-title">Leave a Comment:</h3>
+                <p>Posting as: {{ user.username }}</p>
+                <form id="commentForm" method="post" style="margin-top: 1.3em;">
+                    {{ comment_form|crispy }}
+                    {% csrf_token %}
+                    <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+                </form>
+            {% else %}
+                <p>Log in to leave a comment.</p>
+            {% endif %}
+            <br>
+        </div>
     </div>
-    <div class="col-md-5">
-        {% if user.is_authenticated %}
-            <h3 class="comment-form-title">Leave a Comment:</h3>
-            <p>Posting as: {{ user.username }}</p>
-            <form id="commentForm" method="post" style="margin-top: 1.3em;">
-                {{ comment_form|crispy }}
-                {% csrf_token %}
-                <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
-            </form>
-        {% else %}
-            <p>Log in to leave a comment.</p>
-        {% endif %}
-        <br>
-    </div>
-</div>
 
-<!-- Delete confirmation modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Delete comment?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete your comment? This action cannot be undone.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a id="deleteConfirm" href="#" class="btn btn-danger">Delete</a>
+    <!-- Delete confirmation modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete comment?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete your comment? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a id="deleteConfirm" href="#" class="btn btn-danger">Delete</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock content %}
 
 {% block extras %}
