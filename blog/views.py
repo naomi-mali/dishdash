@@ -187,3 +187,20 @@ class RecipeLike(LoginRequiredMixin, View):
             messages.success(request, "You have liked this recipe.")
 
         return redirect(reverse('recipe_detail', args=[slug]))
+
+def error_404(request, exception):
+
+    """"
+    Handles HTTP 404 errors
+    """
+
+    return render(request, '404.html')
+
+
+def error_500(request):
+
+    """"
+    Handles HTTP 500 errors
+    """
+
+    return render(request, '500.html')        
