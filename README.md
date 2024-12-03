@@ -681,39 +681,40 @@ In order to check HTML code in dynamic website:
 
 ### Home Page
 
-![Screenshot 2024-08-15 084826](https://github.com/user-attachments/assets/e4fd0674-b29d-4e69-89df-2eaabac2d9e4)
+![2](https://github.com/user-attachments/assets/40879a41-1315-416c-bb56-9c60f171bb3f)
+
 
 ### Search Recipes Page
 
-![Screenshot 22222222](https://github.com/user-attachments/assets/9e2ecc66-945c-47ee-8eed-69ad4efbea33)
+![4](https://github.com/user-attachments/assets/eb090916-2351-49b2-ad62-8d37f4e6f49e)
 
 ### Recipe Details Page
 
-![Screenshot 3333333](https://github.com/user-attachments/assets/183e7684-013c-47ba-a8e9-b209056b80fe)
+![3](https://github.com/user-attachments/assets/2fec83f9-07ca-42d9-943f-8f3f9353fb95)
 
 ###  My Drafts Page
 
-![Screenshot 4444444](https://github.com/user-attachments/assets/daea4feb-d80a-4d17-ad39-32b44a79fb3d)
+![5](https://github.com/user-attachments/assets/78d2ce50-86a6-4c1a-b782-72aee1a8f865)
 
 ### Sign In Page
 
-![Screenshot 77777](https://github.com/user-attachments/assets/7d3ff7b2-a38d-4e2a-889f-b38145987b8a)
+![6](https://github.com/user-attachments/assets/e4dc45a9-f553-4f34-b8f8-d5b1a995d065)
 
 ### Logout Page
 
-![Screenshot 666666666-08-15 085940](https://github.com/user-attachments/assets/abff27a9-76f9-4f89-93b0-1e6bc5ffab97)
+![7](https://github.com/user-attachments/assets/256ed55a-4fdf-4694-96fc-fbf63d98c8ce)
 
 ### Delete Recipe Page 
 
-![Screenshot 9999999](https://github.com/user-attachments/assets/1b85754f-7ac9-4788-81ad-11f452aa2e61)
+![8](https://github.com/user-attachments/assets/5de00891-e4bf-4f89-aaa6-829e3575ea61)
 
 ### Add Recipe Page | Update Recipe Page
 
-![Screenshot 2888888888](https://github.com/user-attachments/assets/4dfd8aaf-d1a9-4737-9bea-b2da7c93f39f)
+![9](https://github.com/user-attachments/assets/6d5e93f5-378f-4b0f-a5fb-c5ec1f305060)
 
 ### Sign Up Page
 
-![Screenshot5555555](https://github.com/user-attachments/assets/3d574904-a5b3-4e80-9f3a-0702b70848ac)
+![10](https://github.com/user-attachments/assets/5376a4e6-a817-4827-b425-64ad9334be8f)
 
 ## CSS Validation
 
@@ -751,23 +752,35 @@ Couple of warnings when running settings.py file. Too long lines of code. Modify
 
 ### Functional Testing
 
-| **Feature**                                             | **User Action**                                                                                                                                                        | **System Response**                                                                                                                                                                                                                       | **Status**      |
-|---------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
-| **Sign-Up Process**                                     | User clicks "Sign-Up" or "Sign up now", enters username, password, confirms password, optionally enters email, clicks "Sign-Up"                                       | User is redirected to the home page with a message "Successfully Signed up as 'USERNAME'" displayed at the top of the page.                                                                                                               | As expected     |
-| **Sign-In Process**                                     | User clicks "Sign-In" from the nav bar or sign-up page, enters correct username and password, clicks "Sign-In"                                                         | User is redirected to the home page with a message "Successfully Signed in as 'Username'" displayed at the top of the page.                                                                                                               | As expected     |
-| **Log-Out Process**                                     | User clicks "Log-Out" from nav bar, confirms sign-out by clicking "Sign-Out" on the sign-out page                                                                       | User is redirected to the home page with a message "You have signed out" displayed at the top of the page.                                                                                                                                 | As expected     |
-| **Navigating to the Recipes Tab**                       | User clicks on the "Recipes" tab from the nav bar                                                                                                                       | User is directed to the `index.html` page, where a list of published recipes is available to view. Six recipes are shown per page, with pagination navigation available if more than six recipes exist.                                  | As expected     |
-| **Pagination Navigation**                               | User clicks "Next" if on page 1, or "Previous" or "Next" if on any other page, within the `index.html`, `my_drafts.html`, or `recipe_search.html` pages             | User is directed to the relevant page, depending on whether they clicked "Next" or "Previous".                                                                                                                                            | As expected     |
-| **Viewing a Recipe in Detail**                          | User hovers over "View Recipe" button, button changes color to dark blue on hover, clicks the button                                                                    | User is directed to the `recipe_detail.html` page, displaying the full details of the selected recipe.                                                                                                                                     | As expected     |
-| **Like Functionality**                                  | 1. Logged-in user clicks on hollow heart icon 2. Logged-in user clicks on solid red heart icon 3. Unauthenticated user clicks on heart icon                           | 1. Icon changes to solid red, and like count increases by one. 2. Icon changes to hollow, and like count decreases by one. 3. Icon remains unchanged and like count does not change.                                                      | As expected     |
-| **Logging in to Leave a Comment**                       | User clicks "Sign-In" on the `recipe_detail.html` page, enters correct username and password, then clicks "Sign-In"                                                     | User is redirected back to the same recipe detail page, sees a success message at the top, and upon scrolling to the comments section, sees a comment form instead of the sign-in option.                                                 | As expected     |
-| **Leaving a Comment**                                   | Logged-in user enters a comment and clicks "Submit"                                                                                                                    | The user's comment appears in the comments section, in reverse chronological order (with the newest comments appearing first).                                                                                                           | As expected     |
-| **My Drafts Tab**                                       | Logged-in user clicks on "My Drafts" tab from the nav bar                                                                                                              | User is directed to the `my_drafts.html` page, displaying a list of their own draft recipes. If the user has no drafts, a message indicates that no draft recipes are available.                                                          | As expected     |
-| **Adding a Recipe**                                     | Logged-in user clicks "Add Recipe" tab from the nav bar, fills out the required fields on the form, optionally uploads an image, and clicks "Submit"                   | User is redirected to the `index.html` page with a success message displayed at the top. The recipe appears in the list if published, or on the `my_drafts.html` page if saved as a draft.                                              | As expected     |
-| **Deleting a Recipe**                                   | User clicks "Delete" on their own recipe from the `recipe_detail.html` page, confirms by clicking "Yes, Delete Recipe", or cancels by clicking "Cancel"                | 1. User is redirected to `index.html` with a success message displayed at the top, and the recipe is deleted. 2. User is redirected back to the `recipe_detail.html` page, and the recipe remains published.                             | As expected     |
-| **Editing a Recipe**                                    | User clicks "Edit" on their own recipe from the `recipe_detail.html` or `my_drafts.html` pages, modifies fields, and clicks "Submit"                                   | User is redirected to the `index.html` page with a success message if the recipe is published, or to the `my_drafts.html` page if saved as a draft. The updated recipe is displayed accordingly.                                         | As expected     |
-| **Searching for Recipes**                               | User clicks "Search Recipes" tab from the nav bar                                                                                                                      | User is directed to the `recipe_search.html` page, where they can use a form to search for recipes.                                                                                                                                         | As expected     |
-| **Adding a Recipe from the Search Page**                | User clicks "Add Your Recipe" link on the `recipe_search.html` page                                                                                                     | 1. Logged-in user is directed to the `add_recipe.html` page. 2. Unauthenticated user is redirected to the sign-in page and can proceed to sign in or sign up before being able to add a recipe.                                              | As expected     |
+### Manual Testing
+
+| **Test Case**                                  | **Action**                                                                                          | **Expected Result**                                                                                 | **Actual Result** | **Status**      |
+|------------------------------------------------|----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|-------------------|-----------------|
+| **Sign-Up Process**                            | Open the website, click "Sign-Up," fill in valid details, and click "Sign-Up."                     | User is redirected to the homepage with a success message, and their account is created.            | As expected       | Passed          |
+|                                                | Fill in mismatched passwords and click "Sign-Up."                                                 | Form prompts an error indicating passwords must match, and the account is not created.             | As expected       | Passed          |
+|                                                | Leave required fields empty and click "Sign-Up."                                                  | Form prompts an error to fill in required fields, and the account is not created.                  | As expected       | Passed          |
+| **Sign-In Process**                            | Use valid credentials to sign in.                                                                 | User is redirected to the homepage with a success message.                                         | As expected       | Passed          |
+|                                                | Use invalid credentials to sign in.                                                               | Form prompts an error, and the user remains on the sign-in page.                                   | As expected       | Passed          |
+| **Add Recipe Form**                            | Fill in all required fields and click "Submit."                                                   | Recipe is added successfully and appears on the `index.html` or `my_drafts.html` page.             | As expected       | Passed          |
+|                                                | Submit the form with required fields left blank.                                                  | Form prompts an error indicating required fields need to be filled, and the recipe is not added.   | As expected       | Passed          |
+| **Edit Recipe**                                | Navigate to an editable recipe, change details, and click "Submit."                               | Recipe updates are reflected correctly on the relevant page.                                       | As expected       | Passed          |
+|                                                | Attempt to access the edit page for a recipe created by another user.                             | User is shown a 403 error page.                                                                    | As expected       | Passed          |
+|                                                | Leave required fields blank during editing and submit.                                            | Form prompts an error to fill required fields, and changes are not saved.                         | As expected       | Passed          |
+| **Delete Recipe**                              | Navigate to a recipe, click "Delete," and confirm the deletion.                                   | Recipe is deleted, and a success message is displayed.                                             | As expected       | Passed          |
+|                                                | Click "Delete" and then cancel the deletion.                                                      | User is redirected back to the recipe page, and the recipe is not deleted.                         | As expected       | Passed          |
+| **Comments**                                   | Submit a valid comment on a recipe detail page.                                                   | Comment appears in the comments section.                                                          | As expected       | Passed          |
+|                                                | Submit an empty comment form.                                                                     | Form prompts an error to fill in the required field, and the comment is not submitted.             | As expected       | Passed          |
+| **Edit Comment**                               | Edit an existing comment and save changes.                                                        | Changes are reflected in the comment section.                                                      | As expected       | Passed          |
+|                                                | Attempt to edit a comment created by another user.                                                | User receives a 403 error.                                                                         | As expected       | Passed          |
+|                                                | Submit an empty comment during editing.                                                           | Form prompts an error, and the changes are not saved.                                              | As expected       | Passed          |
+| **Delete Comment**                             | Delete an existing comment and confirm the deletion.                                              | Comment is removed from the comments section.                                                      | As expected       | Passed          |
+|                                                | Attempt to delete a comment created by another user.                                              | User receives a 403 error.                                                                         | As expected       | Passed          |
+|                                                | Cancel the deletion process on the confirmation page.                                              | User is redirected back to the page, and the comment is not deleted.                               | As expected       | Passed          |
+| **Pagination**                                 | Click "Next" or "Previous" on paginated lists.                                                    | User is directed to the correct page, showing relevant recipes or drafts.                          | As expected       | Passed          |
+| **Search Recipes**                             | Use the search bar to look for a recipe.                                                          | Search results are displayed based on the search term.                                              | As expected       | Passed          |
+| **Like Functionality**                         | Click the like button on a recipe.                                                                | Like count increases, and the button changes to a solid red heart.                                 | As expected       | Passed          |
+|                                                | Click the like button again to unlike the recipe.                                                 | Like count decreases, and the button changes to a hollow heart.                                    | As expected       | Passed          |
+|                                                | Click the like button while not signed in.                                                        | User is not able to like the recipe, and the like count does not change.                           | As expected       | Passed          |    |
 
 ### Links and Buttons
 
@@ -803,6 +816,12 @@ Testing is performed on all forms in the website and for user authentication to 
 |Edit Recipe |	1.user tries to access URL to edit recipe but not logged in 2. user tries to access the url from different username	| 1.user directed to login page 2. user receives error 403 |	as expected |
 | Delete Recipe |	1.user tries to access URL to delete recipe but not logged in 2. user tries to access the url from different username | 1.user directed to login page 2. user receives error 403 | as expected |
 | Comment form |	user tries to submit empty comment form |	user receives prompt Please fill in this field, form is not submitted |	as expected |
+| Edit Comment          | 1. User tries to access the edit comment URL but is not logged in.                                | 1. User is redirected to the login page.                                                                                   | As expected    |
+|                       | 2. User tries to edit a comment they did not create.                                              | 2. User receives a 403 error.                                                                                              | As expected    |
+|                       | 3. User submits an empty comment in the edit form.                                                | 3. User receives a "Please fill in this field" prompt, and the form is not submitted.                                       | As expected    |
+| Delete Comment        | 1. User tries to access the delete comment URL but is not logged in.                              | 1. User is redirected to the login page.                                                                                   | As expected    |
+|                       | 2. User tries to delete a comment they did not create.                                            | 2. User receives a 403 error.                                                                                              | As expected    |
+|                       | 3. User clicks "Cancel" on the delete confirmation page.                                          | 3. User is redirected back to the page without deleting the comment.                                                       | As expected    |
 
 ## Automated Testing
 
